@@ -1,0 +1,95 @@
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="name">Name</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="amount">Amount</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="date">Date</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group date">
+      <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="category">Category</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="details">Details</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+
+<div class="form-group btn-group cost-split-buttons" data-toggle="buttons">
+  <label class="btn btn-default active">
+    <input class="split_method_toggle" id="split_method_toggle_equal" type="radio" value="equal" checked="checked" name="cost[split_method]" />
+    Split Equal
+  </label>
+  <label class="btn btn-default ">
+    <input class="split_method_toggle" id="split_method_toggle_custom" type="radio" value="custom" name="cost[split_method]" />
+    Split Custom
+  </label>
+</div>
+
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="charge_to">Charge to:</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <% current_house_members.each do |user| %> 
+      <div class="checkbox">
+        <input id="user[<%= user.id %>]" type="checkbox" name="charges[users][<%= user.id %>]" value="<%= user.id %>"><%= user.full_name %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-2 control-label">
+    <label for="deadline">Deadline</label>
+  </div>
+  <div class="col-sm-10" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control">
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-2 control-label">
+<button type="submit" class="btn btn-theme pull-right">Save</button>
+</div>

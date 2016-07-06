@@ -1,11 +1,13 @@
-Myapp::Application.routes.draw do
-  get "home/index"
-  get "home/minor"
+Rails.application.routes.draw do
+  resources :houses
+  resources :charges
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-root to: 'home#index'
+  # root 'expenses#index'
+  root to: 'home#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -13,7 +15,19 @@ root to: 'home#index'
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
+  resources :expenses
+  
+  get 'home/index'
+  get 'home/minor'
+  
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
+  
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+  
+  get '/mark_completed/:id' => 'charges#mark_completed', as: :mark_completed
 
   # Example resource route with options:
   #   resources :products do
