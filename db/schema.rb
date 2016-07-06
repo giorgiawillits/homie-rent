@@ -11,6 +11,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160702075121) do
+
+  create_table "charges", force: :cascade do |t|
+    t.boolean  "completed"
+    t.float    "amount"
+    t.integer  "expense_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "charged_to_id"
+  end
+
+  add_index "charges", ["charged_to_id"], name: "index_charges_on_charged_to_id"
+  add_index "charges", ["expense_id"], name: "index_charges_on_expense_id"
+
+  create_table "expenses", force: :cascade do |t|
+    t.string   "name"
+    t.float    "amount"
+    t.datetime "date"
+    t.string   "category"
+    t.string   "details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "paid_by_id"
+    t.datetime "deadline"
+  end
+
+  add_index "expenses", ["paid_by_id"], name: "index_expenses_on_paid_by_id"
+
+  create_table "houses", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "password_digest"
+    t.integer  "house_id"
+  end
+
+  add_index "users", ["house_id"], name: "index_users_on_house_id"
 
 end
