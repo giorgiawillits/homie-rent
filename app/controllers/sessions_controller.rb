@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     if session[:user_id]
       redirect_to "/"
     end
+    render :layout => "empty"
   end
 
   def create

@@ -17,6 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    render :layout => "empty"
   end
 
   # GET /users/1/edit
