@@ -1,0 +1,6 @@
+<!-- app/views/expenses/edit.html.erb -->
+<h4>Edit Expense</h4>
+
+<%= form_tag expense_path(@expense), :method => "put", :id => "expense_form" do %>
+  <%= render "expense_form" %>
+<% end %>
