@@ -15,7 +15,7 @@
   </div>
   <div class="col-sm-10" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control" data-num_users=<%= current_house_members.length %> >
+      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control">
     </div>
   </div>
 </div>
@@ -54,7 +54,7 @@
 </div>
 
 
-<div class="form-group btn-group cost-split-buttons" data-toggle="buttons">
+<div class="form-group btn-group" data-toggle="buttons">
   <label class="btn btn-default active">
     <input class="split_method_toggle" id="split_method_toggle_equal" type="radio" value="equal" checked="checked" name="cost[split_method]" />
     Split Equal
@@ -71,10 +71,17 @@
     <label for="charge_to">Charge to:</label>
   </div>
   <div class="col-sm-10" style='margin-bottom:25px;'>
-    <% current_house_members.each_with_index do |user, i| %> 
-      <input class="user-each" id="user[<%= i %>]" type="text" name="charges[users][<%= user.id %>]">
-      <label for="user[<%= i %>]"><%= user.full_name %></label>
-    <% end %>
+    <table>
+      <tbody>
+        <% current_house_members.each_with_index do |user, i| %> 
+          <tr>
+            <td><input class="user-each" id="user[<%= i %>]" type="text" name="charges[users][<%= user.id %>]"></td>
+            <td><label for="user[<%= i %>]"><%= user.full_name %></label></td>
+            <td><i class="fa fa-check-square-o split-font split-checkbox"></i></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -95,10 +102,17 @@
 
 <script>
   $(document).ready(function(){
+    
+    $(".split-checkbox").click(function(){
+      $(this).toggleClass("fa-check-square-o fa-square-o");
+      
+    });
+    
     $("#amount").change(function(){
-      var num_users = $(this).data("num_users")
-      var equal_amount = $(this).val() / num_users
-      $(".user-each").val(equal_amount)
-    })
-  })
+      var num_users = $(".fa-check-square-o").length;
+      var equal_amount = $(this).val() / num_users;
+      $(".user-each").val(equal_amount);
+    });
+    
+  });
 </script>
