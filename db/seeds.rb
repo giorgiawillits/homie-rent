@@ -76,13 +76,17 @@ expenses.each do |expense|
     expense_instances << Expense.create!(expense)
 end
 june_rent = Expense.find_by_details("June Rent")
+amazon = Expense.find_by_details("Amazon Subscription")
 
 ## CHARGES ##
 charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged_to => anne}, 
            {:completed => false, :amount => 650, :expense => june_rent, :charged_to => paul},
            {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => gige},
            {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => val},
-           {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => yan}]
+           {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => yan},
+           {:completed => true, :amount => 1100, :expense => amazon, :charged_to => val},
+           {:completed => true, :amount => 1100, :expense => amazon, :charged_to => anne},
+           {:completed => false, :amount => 1100, :expense => amazon, :charged_to => yan}]
         
 charge_instances = []
 charges.each do |charge|
