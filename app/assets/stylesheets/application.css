@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require font-awesome
+ *= require parsley
  *= require animate/animate.css
  *= require style
  */
