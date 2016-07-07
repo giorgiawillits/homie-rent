@@ -75,9 +75,9 @@
       <tbody>
         <% current_house_members.each_with_index do |user, i| %> 
           <tr>
-            <td><input class="user-each" id="user[<%= i %>]" type="text" name="charges[users][<%= user.id %>]"></td>
-            <td><label for="user[<%= i %>]"><%= user.full_name %></label></td>
-            <td><i class="fa fa-check-square-o split-font split-checkbox"></i></td>
+            <td><input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]"></td>
+            <td><label for="user-<%= i %>"><%= user.full_name %></label></td>
+            <td><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
           </tr>
         <% end %>
       </tbody>
@@ -103,15 +103,21 @@
 <script>
   $(document).ready(function(){
     
+    var calculateEqualCharges = function(){
+      var num_users = $(".fa-check-square-o").length;
+      var equal_amount = $("#amount").val() / num_users;
+      $(".user-paying").val(equal_amount);
+      $(".user-not-paying").val(0);
+    };
+    
     $(".split-checkbox").click(function(){
       $(this).toggleClass("fa-check-square-o fa-square-o");
-      
+      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
+      calculateEqualCharges();
     });
     
     $("#amount").change(function(){
-      var num_users = $(".fa-check-square-o").length;
-      var equal_amount = $(this).val() / num_users;
-      $(".user-each").val(equal_amount);
+      calculateEqualCharges();
     });
     
   });
