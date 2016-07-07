@@ -55,13 +55,21 @@
 
 
 <div class="form-group btn-group" data-toggle="buttons">
-  <label class="btn btn-default active">
-    <input class="split_method_toggle" id="split_method_toggle_equal" type="radio" value="equal" checked="checked" name="cost[split_method]" />
-    Split Equal
+  <label class="btn btn-default split-method active" id="split-method-equal">
+    <input type="radio" value="equal" />
+    =
   </label>
-  <label class="btn btn-default ">
-    <input class="split_method_toggle" id="split_method_toggle_custom" type="radio" value="custom" name="cost[split_method]" />
-    Split Custom
+  <label class="btn btn-default split-method" id="split-method-dollars">
+    <input type="radio" value="dollars" />
+    $
+  </label>
+  <label class="btn btn-default split-method" id="split-method-percent">
+    <input type="radio" value="percent" />
+    %
+  </label>
+  <label class="btn btn-default split-method" id="split-method-unit">
+    <input type="radio" value="unit" />
+    <i class="fa fa-th"></i>
   </label>
 </div>
 
@@ -71,17 +79,71 @@
     <label for="charge_to">Charge to:</label>
   </div>
   <div class="col-sm-10" style='margin-bottom:25px;'>
-    <table>
+    
+    
+    <table class="split-table-showing split-method-equal split-method-dollars">
       <tbody>
         <% current_house_members.each_with_index do |user, i| %> 
           <tr>
-            <td><input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]"></td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]"/>
+              </div>
+            </td>
             <td><label for="user-<%= i %>"><%= user.full_name %></label></td>
             <td><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
           </tr>
         <% end %>
       </tbody>
     </table>
+    
+    <table class="split-table-hidden split-method-percent">
+      <tbody>
+        <% current_house_members.each_with_index do |user, i| %> 
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input readonly class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="user-percent user-paying" type="text" />
+                <span class="input-group-addon">%</span>
+              </div>
+            </td>
+            <td><label for="user-<%= i %>"><%= user.full_name %></label></td>
+            <td><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <table class="split-table-hidden split-method-unit">
+      <tbody>
+        <% current_house_members.each_with_index do |user, i| %> 
+          <tr>
+            <td>
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input readonly class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+              </div>
+            </td>
+            <td>
+              <div class="input-group">
+                <input class="user-percent user-paying" type="text" />
+                <span class="input-group-addon">units</span>
+              </div>
+            </td>
+            <td><label for="user-<%= i %>"><%= user.full_name %></label></td>
+            <td><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
   </div>
 </div>
 
@@ -99,6 +161,9 @@
 <div class="col-sm-2 control-label">
 <button type="submit" class="btn btn-theme pull-right">Save</button>
 </div>
+
+
+
 
 <script>
   $(document).ready(function(){
@@ -118,6 +183,12 @@
     
     $("#amount").change(function(){
       calculateEqualCharges();
+    });
+    
+    $(".split-method").click(function(){
+      $(".split-table-showing").toggleClass("split-table-showing split-table-hidden");
+      var table_class = $(this).attr("id");
+      $("." + table_class).toggleClass("split-table-showing split-table-hidden");
     });
     
   });
