@@ -12,7 +12,7 @@
                 An app to make living with friends more friendly.
             </p>
             <p>Login in to see it in action.</p>
-            <%= form_tag '/login', {:class => 'm-t'} do %>
+            <%= form_tag login_path, {:class => 'm-t'} do %>
                 <div class="form-group">
                     <%= text_field_tag :email, "", {class: "form-control", placeholder: "Email"} %>
                 </div>
