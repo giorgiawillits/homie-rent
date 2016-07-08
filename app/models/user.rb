@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     self.first_name.capitalize + " " + self.last_name.capitalize
   end 
   
+  def first_name_initial
+    self.first_name.capitalize + " " + self.last_name.capitalize[0] + "." 
+  end 
+  
 end

@@ -7,22 +7,23 @@
         <div class="ibox-title">
           <h5>Expenses</h5>
           <div class="ibox-tools">
-            <%= link_to 'Add Expense', new_expense_path, class:"btn btn-primary btn-xs" %>
+            <%= link_to ('Add Expense  ' + fa_icon("plus") ).html_safe, new_expense_path, class:"btn btn-primary btn-xs" %>
           </div>
         </div>
         <div class="ibox-content">
-          <div class="row m-b-sm m-t-sm">
-            <div class="col-md-1">
-              <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
-            </div>
-            <div class="col-md-11">
-              <div class="input-group">
-                <input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
-                <button type="button" class="btn btn-sm btn-primary"> Go!</button>
-              </span>
-            </div>
-          </div>
-        </div>
+          <!--<div class="row m-b-sm m-t-sm">-->
+          <!--  <div class="col-md-1">-->
+          <!--    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>-->
+          <!--  </div>-->
+          <!--  <div class="col-md-11">-->
+          <!--    <div class="input-group">-->
+          <!--      <input type="text" placeholder="Search" class="input-sm form-control"> -->
+          <!--      <span class="input-group-btn">-->
+          <!--        <button type="button" class="btn btn-sm btn-primary"> Go!</button>-->
+          <!--      </span>-->
+          <!--    </div>-->
+          <!--  </div>-->
+          <!--</div>-->
 
         <div class="project-list">
 
@@ -43,7 +44,11 @@
                 <td class="project-title">
                   <%= link_to expense.name, expense_path(expense) %>
                   <br />
-                  <small>Created <%= expense.date %></small>
+                  <small>Created <%= expense.date_formatted %> by <%= expense.paid_by.first_name_initial %></small>
+                  <% if expense.deadline %>
+                    <br />
+                    <small>Due <%= expense.deadline_formatted %></small>
+                  <% end %>
                 </td>
                 <td class="project-completion">
                   <small><%= expense.percent_complete %>% Complete</small>
@@ -52,9 +57,9 @@
                   </div>
                 </td>
                 <td class="project-people">
-                  <a href=""><img alt="image" class="img-circle avatar-paid" src="<%= image_path('a7.jpg') %>"></a>
-                  <a href=""><img alt="image" class="img-circle avatar-overdue" src="<%= image_path('a6.jpg') %>"></a>
-                  <a href=""><img alt="image" class="img-circle avatar" src="<%= image_path('a3.jpg') %>"></a>
+                  <% for charge in expense.charges %>
+                    <a href=""><img alt="image" class="img-circle avatar-paid" src="<%= image_path('a%d.jpg' % [rand(1...7)]) %>"></a>
+                  <% end %>
                 </td>
                 <td class="project-actions">
                   <%= link_to  ('Edit ' + fa_icon("pencil") ).html_safe, edit_expense_path(expense), {:class => "btn btn-info btn-xs"} %>

@@ -4,6 +4,14 @@ class Expense < ActiveRecord::Base
   belongs_to :paid_by, :class_name => "User"
   has_many :charges
   
+  def date_formatted
+    self.date.strftime("%a, %b #{self.date.day.ordinalize}")
+  end
+  
+  def deadline_formatted
+    self.deadline.strftime("%a, %b #{self.deadline.day.ordinalize}")
+  end
+  
   def completed?
     self.charges.all? { |charge| charge.completed }
   end
