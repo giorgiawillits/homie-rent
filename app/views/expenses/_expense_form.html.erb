@@ -86,8 +86,7 @@
             <td>
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input class="user-paying split-col-showing split-method-equal split-method-dollars" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
-                <input readonly class="user-paying split-col-hidden hidden split-method-percent split-method-unit" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+                <input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
               </div>
             </td>
             <td>
@@ -151,12 +150,8 @@
       $(".fa-check-square-o").each(function() {
         var rowId = $(this).data("row_id");
         var percent = $("#user-percentage-" + rowId).val();
-        console.log(total);
-        console.log(total*percent);
-        console.log(total*percent/100);
         $("#user-" + rowId).val(total * percent / 100);
       });
-      
     }
     
     $(".split-checkbox").click(function() {
@@ -167,16 +162,20 @@
     
     $("#amount").change(calculateCharges);
     
-    // $("#amount").change(function(){
-    //   calculateEqualCharges();
-    // });
-    
     $(".split-method").click(function() {
       $(".split-col-showing").toggleClass("hidden");
       $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
       var splitMethod = $(this).attr("id");
       $("." + splitMethod).toggleClass("hidden");
       $("." + splitMethod).toggleClass("split-col-showing split-col-hidden");
+      
+      console.log(splitMethod)
+      if ((splitMethod == "split-method-equal" || splitMethod == "split-method-dollars") && $(".user-amount").attr("readonly")) {
+        $(".user-amount").attr("readonly", false);
+      } else if ((splitMethod == "split-method-percent" || splitMethod == "split-method-unit") && !$(".user-amount").attr("readonly")) {
+        $(".user-amount").attr("readonly", true);
+      }
+      
       
       $(".split-method-active").toggleClass("split-method-active split-method-inactive");
       $(this).toggleClass("split-method-active split-method-inactive");
