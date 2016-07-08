@@ -79,8 +79,6 @@
     <label for="charge_to">Charge to:</label>
   </div>
   <div class="col-sm-10" style='margin-bottom:25px;'>
-    
-    
     <table>
       <tbody>
         <% current_house_members.each_with_index do |user, i| %> 
@@ -94,7 +92,7 @@
             </td>
             <td>
               <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-                <input type="text" />
+                <input id="user-percentage-<%= i %>" type="text"/>
                 <span class="input-group-addon split-col-showing split-method-percent">%</span>
                 <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
               </div>
@@ -105,8 +103,6 @@
         <% end %>
       </tbody>
     </table>
-    
-    
   </div>
 </div>
 
@@ -128,30 +124,42 @@
 
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function() {
     
-    var calculateCharges = function(){
+    var calculateCharges = function() {
       var splitMethod = $(".split-method-active").attr("id");
-      console.log(splitMethod);
       if (splitMethod == "split-method-equal") {
         calculateEqualCharges();
       } else if (splitMethod == "split-method-dollars") {
         $(".user-paying,.user-not-paying").val(0);
       } else if (splitMethod == "split-method-percent") {
-        
+        calculatePercentCharges();
       } else if (splitMethod == "split-method-unit") {
         
       }
     }
     
-    var calculateEqualCharges = function(){
+    var calculateEqualCharges = function() {
       var numUsers = $(".fa-check-square-o").length;
       var equalAmount = $("#amount").val() / numUsers;
       $(".user-paying").val(equalAmount);
       $(".user-not-paying").val(0);
     };
     
-    $(".split-checkbox").click(function(){
+    var calculatePercentCharges = function() {
+      var total = $("#amount").val();
+      $(".fa-check-square-o").each(function() {
+        var rowId = $(this).data("row_id");
+        var percent = $("#user-percentage-" + rowId).val();
+        console.log(total);
+        console.log(total*percent);
+        console.log(total*percent/100);
+        $("#user-" + rowId).val(total * percent / 100);
+      });
+      
+    }
+    
+    $(".split-checkbox").click(function() {
       $(this).toggleClass("fa-check-square-o fa-square-o");
       $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
       calculateCharges();
@@ -163,7 +171,7 @@
     //   calculateEqualCharges();
     // });
     
-    $(".split-method").click(function(){
+    $(".split-method").click(function() {
       $(".split-col-showing").toggleClass("hidden");
       $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
       var splitMethod = $(this).attr("id");
