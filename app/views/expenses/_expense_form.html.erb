@@ -55,19 +55,19 @@
 
 
 <div class="form-group btn-group" data-toggle="buttons">
-  <label class="btn btn-default split-method active" id="split-method-equal">
+  <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
     <input type="radio" value="equal" />
     =
   </label>
-  <label class="btn btn-default split-method" id="split-method-dollars">
+  <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
     <input type="radio" value="dollars" />
     $
   </label>
-  <label class="btn btn-default split-method" id="split-method-percent">
+  <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
     <input type="radio" value="percent" />
     %
   </label>
-  <label class="btn btn-default split-method" id="split-method-unit">
+  <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
     <input type="radio" value="unit" />
     <i class="fa fa-th"></i>
   </label>
@@ -130,20 +130,34 @@
 <script>
   $(document).ready(function(){
     
+    var calculateCharges = function(){
+      var splitMethod = $(".split-method-active").attr("id");
+      console.log(splitMethod);
+      if (splitMethod == "split-method-equal") {
+        calculateEqualCharges();
+      } else if (splitMethod == "split-method-dollars") {
+        $(".user-paying,.user-not-paying").val(0);
+      } else if (splitMethod == "split-method-percent") {
+        
+      } else if (splitMethod == "split-method-unit") {
+        
+      }
+    }
+    
     var calculateEqualCharges = function(){
-      var num_users = $(".fa-check-square-o").length;
-      var equal_amount = $("#amount").val() / num_users;
-      $(".user-paying").val(equal_amount);
+      var numUsers = $(".fa-check-square-o").length;
+      var equalAmount = $("#amount").val() / numUsers;
+      $(".user-paying").val(equalAmount);
       $(".user-not-paying").val(0);
     };
     
     $(".split-checkbox").click(function(){
       $(this).toggleClass("fa-check-square-o fa-square-o");
       $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
-      calculateEqualCharges();
+      calculateCharges();
     });
     
-    $("#amount").change(calculateEqualCharges);
+    $("#amount").change(calculateCharges);
     
     // $("#amount").change(function(){
     //   calculateEqualCharges();
@@ -152,9 +166,13 @@
     $(".split-method").click(function(){
       $(".split-col-showing").toggleClass("hidden");
       $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
-      var table_class = $(this).attr("id");
-      $("." + table_class).toggleClass("hidden");
-      $("." + table_class).toggleClass("split-col-showing split-col-hidden");
+      var splitMethod = $(this).attr("id");
+      $("." + splitMethod).toggleClass("hidden");
+      $("." + splitMethod).toggleClass("split-col-showing split-col-hidden");
+      
+      $(".split-method-active").toggleClass("split-method-active split-method-inactive");
+      $(this).toggleClass("split-method-active split-method-inactive");
+      calculateCharges();
     });
     
   });
