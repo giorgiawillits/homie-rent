@@ -615,6 +615,21 @@ div.dt-button-info {
   border-radius: 50%;
 }
 
+.avatar {
+  padding: 1px;
+  border: 2px solid grey;
+}
+
+.avatar-paid {
+  padding: 1px;
+  border: 2px solid #47ae32;
+}
+
+.avatar-overdue {
+  padding: 1px;
+  border: 2px solid red;
+}
+
 .btn-circle {
   width: 30px;
   height: 30px;

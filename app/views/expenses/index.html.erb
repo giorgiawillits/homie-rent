@@ -1,41 +1,79 @@
 <!-- app/views/expenses/index.html.erb -->
-<h4>Recent Expenses</h4>
-<button type="button" class="btn btn-small pull-right ">
-  <span class="glyphicon glyphicon-plus"></span><%= link_to 'Add Expense', new_expense_path %>
-</button> 
+<div class="row">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
 
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Paid By</th>
-      <th>Category</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% Expense.all.each do |expense| %>
-      <tr>
-        <td><%= expense.name %></td>
-        <td>$<%= expense.amount %></td>
-        <td><%= expense.date %></td>
-        <td><%= expense.paid_by.first_name if expense.paid_by %></td>
-        <td><%= expense.category %></td>
-        <td>
-          <button type="button" class="btn btn-small pull-right ">
-            <%= link_to 'View', expense_path(expense) %>
-          </button> 
-          <button type="button" class="btn btn-small pull-right ">
-            <%= link_to 'Edit', edit_expense_path(expense) %>
-          </button> 
-          <button type="button" class="btn btn-small pull-right ">
-            <%= link_to 'Delete', expense_path(expense), :method => "delete" %>
-          </button> 
-        </td>
-        <!--<td><%= expense.details %></td>-->
-      </tr>
-    <% end %>
-  </tbody>
-</table>  
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Expenses</h5>
+          <div class="ibox-tools">
+            <%= link_to ('Add Expense  ' + fa_icon("plus") ).html_safe, new_expense_path, class:"btn btn-primary btn-xs" %>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <!--<div class="row m-b-sm m-t-sm">-->
+          <!--  <div class="col-md-1">-->
+          <!--    <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>-->
+          <!--  </div>-->
+          <!--  <div class="col-md-11">-->
+          <!--    <div class="input-group">-->
+          <!--      <input type="text" placeholder="Search" class="input-sm form-control"> -->
+          <!--      <span class="input-group-btn">-->
+          <!--        <button type="button" class="btn btn-sm btn-primary"> Go!</button>-->
+          <!--      </span>-->
+          <!--    </div>-->
+          <!--  </div>-->
+          <!--</div>-->
+
+        <div class="project-list">
+
+          <table class="table table-hover">
+            
+            <tbody>
+              <% Expense.all.each do |expense| %>
+              <tr>
+                <td class="project-status">
+                  <% if expense.overdue? %>
+                    <span class="label label-warning">Overdue</span>
+                  <% elsif expense.completed? %>
+                    <span class="label label-primary">Completed</span>
+                  <% else %>
+                    <span class="label label-info">Pending</span>
+                  <% end %>
+                </td>
+                <td class="project-title">
+                  <%= link_to expense.name, expense_path(expense) %>
+                  <br />
+                  <small>Created <%= expense.date_formatted %> by <%= expense.paid_by.first_name_initial %></small>
+                  <% if expense.deadline %>
+                    <br />
+                    <small>Due <%= expense.deadline_formatted %></small>
+                  <% end %>
+                </td>
+                <td class="project-completion">
+                  <small><%= expense.percent_complete %>% Complete</small>
+                  <div class="progress progress-mini">
+                    <div style="width: <%= expense.percent_complete %>%;" class="progress-bar"></div>
+                  </div>
+                </td>
+                <td class="project-people">
+                  <% for charge in expense.charges %>
+                    <a href=""><img alt="image" class="img-circle avatar-paid" src="<%= image_path('a%d.jpg' % [rand(1...7)]) %>"></a>
+                  <% end %>
+                </td>
+                <td class="project-actions">
+                  <%= link_to  ('Edit ' + fa_icon("pencil") ).html_safe, edit_expense_path(expense), {:class => "btn btn-info btn-xs"} %>
+                  <%= link_to ('Delete ' + fa_icon("trash") ).html_safe,  expense_path(expense), {:method => "delete", :class => "btn btn-danger btn-xs"} %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
