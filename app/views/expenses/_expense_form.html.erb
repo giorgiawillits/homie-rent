@@ -91,7 +91,7 @@
             </td>
             <td>
               <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-                <input id="user-percentage-<%= i %>" type="text"/>
+                <input class="user-percent" id="user-percentage-<%= i %>" type="text"/>
                 <span class="input-group-addon split-col-showing split-method-percent">%</span>
                 <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
               </div>
@@ -126,6 +126,7 @@
   $(document).ready(function() {
     
     var calculateCharges = function() {
+      console.log("here");
       var splitMethod = $(".split-method-active").attr("id");
       if (splitMethod == "split-method-equal") {
         calculateEqualCharges();
@@ -162,6 +163,8 @@
     
     $("#amount").change(calculateCharges);
     
+    $(".user-percent").change(calculateCharges);
+    
     $(".split-method").click(function() {
       $(".split-col-showing").toggleClass("hidden");
       $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
@@ -169,13 +172,11 @@
       $("." + splitMethod).toggleClass("hidden");
       $("." + splitMethod).toggleClass("split-col-showing split-col-hidden");
       
-      console.log(splitMethod)
       if ((splitMethod == "split-method-equal" || splitMethod == "split-method-dollars") && $(".user-amount").attr("readonly")) {
         $(".user-amount").attr("readonly", false);
       } else if ((splitMethod == "split-method-percent" || splitMethod == "split-method-unit") && !$(".user-amount").attr("readonly")) {
         $(".user-amount").attr("readonly", true);
       }
-      
       
       $(".split-method-active").toggleClass("split-method-active split-method-inactive");
       $(this).toggleClass("split-method-active split-method-inactive");
