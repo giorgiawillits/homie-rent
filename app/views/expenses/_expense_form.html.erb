@@ -74,7 +74,7 @@
 </div>
 
 
-<div class="form-group">
+<div class="form-group hidden">
   <div class="col-sm-2 control-label">
     <label for="charge_to">Charge to:</label>
   </div>
@@ -105,6 +105,22 @@
   </div>
 </div>
 
+<div class="divContainer">
+  <% current_house_members.each_with_index do |user, i| %> 
+    <div class="item">
+      <div class="itemFlag"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></div> 
+      <div class="itemBody"><label for="user-<%= i %>"><%= user.full_name %></label></div>
+      <div class="itemHeader"></div>
+      <div class="itemHeader">
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 <div class="form-group">
   <div class="col-sm-2 control-label">
     <label for="deadline">Deadline</label>
@@ -124,6 +140,15 @@
 
 <script>
   $(document).ready(function() {
+    
+    $(".split-checkbox").click(function() {
+      $(this).toggleClass("fa-check-square-o fa-square-o");
+      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
+      calculateCharges();
+    });
+    
+    
+    
     
     var calculateCharges = function() {
       console.log("here");
@@ -155,11 +180,6 @@
       });
     }
     
-    $(".split-checkbox").click(function() {
-      $(this).toggleClass("fa-check-square-o fa-square-o");
-      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
-      calculateCharges();
-    });
     
     $("#amount").change(calculateCharges);
     
