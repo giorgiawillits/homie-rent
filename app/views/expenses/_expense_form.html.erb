@@ -144,7 +144,7 @@
     }
     
     var calculateEqualCharges = function() {
-      var numUsers = $(".fa-check-square-o").length;
+      var numUsers = $(".user-paying").length;
       var equalAmount = $("#amount").val() / numUsers;
       $(".user-paying").val(equalAmount);
       $(".user-not-paying").val(0);
@@ -152,6 +152,16 @@
     
     var calculatePercentCharges = function() {
       var total = $("#amount").val();
+      $(".user-amount").each(function() {
+        if ($(this).hasClass("user-paying")) {
+          // get percent amount
+          // fill $$ amount with percent amount * total
+        } else {
+          // set percent amount to 0
+          // set $$ amount to 0
+        }
+      });
+      
       $(".fa-check-square-o").each(function() {
         var rowId = $(this).data("row_id");
         var percent = $("#user-share-" + rowId).val();
