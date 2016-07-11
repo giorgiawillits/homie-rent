@@ -16,12 +16,13 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :expenses
+  resources :users
   
   get 'home/index'
   get 'home/minor'
   
   get '/signup' => 'users#new'
-  post '/users' => 'users#create'
+  # post '/users' => 'users#create'
   
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'

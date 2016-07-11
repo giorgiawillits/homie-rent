@@ -33,7 +33,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # For Storing pictures
 gem 'paperclip'
-gem 'aws-sdk', '~> 2.3'
+gem 'aws-sdk'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

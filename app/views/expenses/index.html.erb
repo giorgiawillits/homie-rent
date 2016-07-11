@@ -58,7 +58,7 @@
                 </td>
                 <td class="project-people">
                   <% for charge in expense.charges %>
-                    <a href=""><img alt="image" class="img-circle avatar-paid" src="<%= image_path('a%d.jpg' % [rand(1...7)]) %>"></a>
+                    <a href="<%= user_path(charge.charged_to) %>"><img alt="image" class="img-circle avatar-paid" src="<%= charge.charged_to.avatar.url %>"></a>
                   <% end %>
                 </td>
                 <td class="project-actions">

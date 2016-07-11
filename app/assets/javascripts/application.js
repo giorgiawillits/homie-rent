@@ -16,4 +16,5 @@
 //= require pace/pace.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require parsley
+//= require bs-file-input.js
 //= require_tree .
