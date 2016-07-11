@@ -136,10 +136,8 @@
         calculateEqualCharges();
       } else if (splitMethod == "split-method-dollars") {
         $(".user-paying,.user-not-paying").val(0);
-      } else if (splitMethod == "split-method-percent") {
-        calculatePercentCharges();
-      } else if (splitMethod == "split-method-unit") {
-        calculateUnitCharges();
+      } else {
+        calculatePercentOrUnitCharges(splitMethod);
       }
     }
     
@@ -170,6 +168,30 @@
       $(".user-share").each(function() {
         totalUnits += Number($(this).val());
       });
+      var unitPrice = total / totalUnits;
+      
+      $(".user-amount").each(function() {
+        var rowId = $(this).data("row_id");
+        if ($(this).hasClass("user-paying")) {
+          var units = $("#user-share-" + rowId).val();
+          $("#user-" + rowId).val(unitPrice * units);
+        } else {
+          $("#user-share-" + rowId).val(0);
+          $("#user-" + rowId).val(0);
+        }
+      });
+    }
+    
+    var calculatePercentOrUnitCharges = function(splitMethod) {
+      var total = $("#amount").val();
+      if (splitMethod == "split-method-percent") {
+        var totalUnits = 100;
+      } else {
+        var totalUnits = 0;
+        $(".user-share").each(function() {
+          totalUnits += Number($(this).val());
+        });
+      }
       var unitPrice = total / totalUnits;
       
       $(".user-amount").each(function() {
