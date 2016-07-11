@@ -16,9 +16,8 @@ class ExpensesController < ApplicationController
     expense.paid_by = current_user
     
     charge_to = params[:charges][:users]
-    amount = expense.amount/charge_to.length
     charge_to.each do |user_id, amnt|
-      charge = Charge.new(:completed => false, :amount => amount)
+      charge = Charge.new(:completed => false, :amount => amnt)
       expense.charges << charge
       charge.charged_to = User.find_by_id(user_id)
       charge.save

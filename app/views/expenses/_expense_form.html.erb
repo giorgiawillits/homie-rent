@@ -124,12 +124,6 @@
 <script>
   $(document).ready(function() {
     
-    $(".split-checkbox").click(function() {
-      $(this).toggleClass("fa-check-square-o fa-square-o");
-      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
-      calculateCharges();
-    });
-    
     var calculateCharges = function() {
       var splitMethod = $(".split-method-active").attr("id");
       if (splitMethod == "split-method-equal") {
@@ -147,40 +141,6 @@
       $(".user-paying").val(equalAmount);
       $(".user-not-paying").val(0);
     };
-    
-    var calculatePercentCharges = function() {
-      var total = $("#amount").val();
-      $(".user-amount").each(function() {
-        var rowId = $(this).data("row_id");
-        if ($(this).hasClass("user-paying")) {
-          var percent = $("#user-share-" + rowId).val();
-          $("#user-" + rowId).val(total * percent / 100);
-        } else {
-          $("#user-share-" + rowId).val(0);
-          $("#user-" + rowId).val(0);
-        }
-      });
-    }
-    
-    var calculateUnitCharges = function() {
-      var total = $("#amount").val();
-      var totalUnits = 0;
-      $(".user-share").each(function() {
-        totalUnits += Number($(this).val());
-      });
-      var unitPrice = total / totalUnits;
-      
-      $(".user-amount").each(function() {
-        var rowId = $(this).data("row_id");
-        if ($(this).hasClass("user-paying")) {
-          var units = $("#user-share-" + rowId).val();
-          $("#user-" + rowId).val(unitPrice * units);
-        } else {
-          $("#user-share-" + rowId).val(0);
-          $("#user-" + rowId).val(0);
-        }
-      });
-    }
     
     var calculatePercentOrUnitCharges = function(splitMethod) {
       var total = $("#amount").val();
@@ -205,6 +165,12 @@
         }
       });
     }
+    
+    $(".split-checkbox").click(function() {
+      $(this).toggleClass("fa-check-square-o fa-square-o");
+      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
+      calculateCharges();
+    });
     
     $("#amount").change(calculateCharges);
     
