@@ -18,3 +18,4 @@
 //= require parsley
 //= require bs-file-input.js
 //= require_tree .
+//= require underscore
