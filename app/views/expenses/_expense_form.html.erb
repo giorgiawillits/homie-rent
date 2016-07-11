@@ -97,7 +97,7 @@
       <div class="itemHeader">
         <div class="input-group">
           <span class="input-group-addon">$</span>
-          <input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+          <input class="user-amount user-paying" id="user-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
         </div>
       </div>
     </div>
@@ -153,27 +153,37 @@
     var calculatePercentCharges = function() {
       var total = $("#amount").val();
       $(".user-amount").each(function() {
+        var rowId = $(this).data("row_id");
         if ($(this).hasClass("user-paying")) {
-          // get percent amount
-          // fill $$ amount with percent amount * total
+          var percent = $("#user-share-" + rowId).val();
+          $("#user-" + rowId).val(total * percent / 100);
         } else {
-          // set percent amount to 0
-          // set $$ amount to 0
+          $("#user-share-" + rowId).val(0);
+          $("#user-" + rowId).val(0);
         }
       });
-      
-      $(".fa-check-square-o").each(function() {
-        var rowId = $(this).data("row_id");
-        var percent = $("#user-share-" + rowId).val();
-        $("#user-" + rowId).val(total * percent / 100);
-      });
-      $(".fa-square-o").each(function() {
-        var rowId = $(this).data("row_id");
-        $("#user-share-" + rowId).val(0);
-        $("#user-" + rowId).val(0);
-      });
-      
     }
+    
+    var calculateUnitCharges = function() {
+      var total = $("#amount").val();
+      var totalUnits = 0;
+      $(".user-share").each(function() {
+        totalUnits += $(this).val();
+      });
+      var unitPrice = total / totalUnits;
+      
+      $(".user-amount").each(function() {
+        var rowId = $(this).data("row_id");
+        if ($(this).hasClass("user-paying")) {
+          var units = $("#user-share-" + rowId).val();
+          $("#user-" + rowId).val(unitPrice * units);
+        } else {
+          $("#user-share-" + rowId).val(0);
+          $("#user-" + rowId).val(0);
+        }
+      });
+    }
+    
     $("#amount").change(calculateCharges);
     
     $(".user-share").change(calculateCharges);
