@@ -139,7 +139,7 @@
       } else if (splitMethod == "split-method-percent") {
         calculatePercentCharges();
       } else if (splitMethod == "split-method-unit") {
-        calculateUnitCharges
+        calculateUnitCharges();
       }
     }
     
@@ -168,7 +168,7 @@
       var total = $("#amount").val();
       var totalUnits = 0;
       $(".user-share").each(function() {
-        totalUnits += $(this).val();
+        totalUnits += Number($(this).val());
       });
       var unitPrice = total / totalUnits;
       
