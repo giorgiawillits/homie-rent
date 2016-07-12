@@ -87,53 +87,54 @@
 
                 <div>
                     <div class="feed-activity-list">
-
+                    <% for expense in @user.expenses %>
                         <div class="feed-element">
                             <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('a1.jpg') %>">
+                                <img alt="image" class="img-circle" src="<%= @user.avatar.url %>">
                             </a>
                             <div class="media-body ">
                                 <small class="pull-right text-navy">1m ago</small>
-                                <strong>Sandra Momot</strong> started following <strong>Monica Smith</strong>. <br>
-                                <small class="text-muted">Today 4:21 pm - 12.06.2014</small>
+                                <strong class="text-navy"><%= @user.full_name %></strong> created <strong><%= expense.name %> </strong>. <br>
+                                <small class="text-muted"><%= expense.date_formatted %></small>
                                 <div class="actions">
                                     <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
                                     <a class="btn btn-xs btn-danger"><i class="fa fa-heart"></i> Love</a>
                                 </div>
                             </div>
                         </div>
+                        <% end %>
 
-                        <div class="feed-element">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('a6.jpg') %>">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">5m ago</small>
-                                <strong>Monica Smith</strong> posted a new blog. <br>
-                                <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
+                        <!--<div class="feed-element">-->
+                        <!--    <a href="#" class="pull-left">-->
+                        <!--        <img alt="image" class="img-circle" src="<%= image_path('a6.jpg') %>">-->
+                        <!--    </a>-->
+                        <!--    <div class="media-body ">-->
+                        <!--        <small class="pull-right">5m ago</small>-->
+                        <!--        <strong>Monica Smith</strong> posted a new blog. <br>-->
+                        <!--        <small class="text-muted">Today 5:60 pm - 12.06.2014</small>-->
 
-                            </div>
-                        </div>
+                        <!--    </div>-->
+                        <!--</div>-->
 
-                        <div class="feed-element">
-                            <a href="#" class="pull-left">
-                                <img alt="image" class="img-circle" src="<%= image_path('a2.jpg') %>">
-                            </a>
-                            <div class="media-body ">
-                                <small class="pull-right">2h ago</small>
-                                <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>
-                                <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
-                                <div class="well">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-                                    Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                                </div>
-                                <div class="pull-right">
-                                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                                    <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
-                                    <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Message</a>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="feed-element">-->
+                        <!--    <a href="#" class="pull-left">-->
+                        <!--        <img alt="image" class="img-circle" src="<%= image_path('a2.jpg') %>">-->
+                        <!--    </a>-->
+                        <!--    <div class="media-body ">-->
+                        <!--        <small class="pull-right">2h ago</small>-->
+                        <!--        <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br>-->
+                        <!--        <small class="text-muted">Today 2:10 pm - 12.06.2014</small>-->
+                        <!--        <div class="well">-->
+                        <!--            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.-->
+                        <!--            Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).-->
+                        <!--        </div>-->
+                        <!--        <div class="pull-right">-->
+                        <!--            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>-->
+                        <!--            <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>-->
+                        <!--            <a class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Message</a>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                         
                     </div>
 

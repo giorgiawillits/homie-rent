@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   
   belongs_to :house
+  has_many :expenses, :foreign_key => "paid_by_id"
+  has_many :charges, :through => :expenses, :foreign_key => "charged_to_id"
   
   def full_name
     self.first_name.capitalize + " " + self.last_name.capitalize
