@@ -1,121 +1,156 @@
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="name">Name</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group">
-      <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control">
+<div class="col-md-4">
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="name">Name</label>
     </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="amount">Amount</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group">
-      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control">
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="date">Date</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group date">
-      <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control">
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="category">Category</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group">
-      <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control">
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="details">Details</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group">
-      <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control">
-    </div>
-  </div>
-</div>
-
-
-<div class="form-group btn-group" data-toggle="buttons">
-  <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
-    <input type="radio" value="equal" />
-    =
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
-    <input type="radio" value="dollars" />
-    $
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
-    <input type="radio" value="percent" />
-    %
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
-    <input type="radio" value="unit" />
-    <i class="fa fa-th"></i>
-  </label>
-</div>
-
-
-<div class="form-group hidden">
-  <div class="col-sm-2 control-label">
-    <label for="charge_to">Charge to:</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-  </div>
-</div>
-
-<div class="divContainer">
-  <% current_house_members.each_with_index do |user, i| %> 
-    <div class="item">
-      <div class="itemFlag"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></div> 
-      <div class="itemBody"><label for="user-<%= i %>"><%= user.full_name %></label></div>
-      <div class="itemHeader">
-        <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-          <input class="user-share" id="user-share-<%= i %>" type="text"/>
-          <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
-          <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
-        </div>
-      </div>
-      <div class="itemHeader">
-        <div class="input-group">
-          <span class="input-group-addon">$</span>
-          <input class="user-amount user-paying" id="user-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
-        </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group">
+        <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control">
       </div>
     </div>
-  <% end %>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="deadline">Deadline</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <div class="input-group">
-      <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control">
+  
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="amount">Amount</label>
+    </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group">
+        <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control">
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="date">Date</label>
+    </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group date">
+        <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control">
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="category">Category</label>
+    </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group">
+        <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control">
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="details">Details</label>
+    </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group">
+        <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control">
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <div class="col-md-2 control-label">
+      <label for="deadline">Deadline</label>
+    </div>
+    <div class="col-md-10" style='margin-bottom:25px;'>
+      <div class="input-group">
+        <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control">
+      </div>
     </div>
   </div>
 </div>
 
-<div class="col-sm-2 control-label">
+  
+<div class="col-md-8">
+  <div class="form-group btn-group" data-toggle="buttons">
+    <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
+      <input type="radio" value="equal" />
+      =
+    </label>
+    <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
+      <input type="radio" value="dollars" />
+      $
+    </label>
+    <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
+      <input type="radio" value="percent" />
+      %
+    </label>
+    <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
+      <input type="radio" value="unit" />
+      <i class="fa fa-th"></i>
+    </label>
+  </div>
+  
+  <div class="ibox">
+    <div class="ibox-title">
+      <span class="pull-right">(<strong>5</strong>) items</span>
+      <h5>Items in your cart</h5>
+    </div>
+    <% current_house_members.each_with_index do |user, i| %> 
+      <div class="ibox-content p-xxs">
+        <div class="table-responsive">
+          <table class="table shoping-cart-table">
+            <tbody>
+              <tr>
+                <td class="col-md-1"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
+                <td class="col-md-5 desc"><h3><div class="text-navy"><label for="user-<%= i %>"><%= user.full_name %></label></div></h3></td>
+                <td class="col-md-3">
+                  <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
+                    <input class="user-share form-control" id="user-share-<%= i %>" type="text"/>
+                    <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
+                    <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
+                  </div>
+                </td>
+                <td class="col-md-3">
+                  <!--<input type="text" class="form-control" placeholder="1">-->
+                  <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input class="user-amount user-paying form-control" id="user-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+                  </div>
+                  <div class="hidden"><h4></h4></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  
+  
+  <div class="divContainer">
+    <% current_house_members.each_with_index do |user, i| %> 
+      <div class="item">
+        <div class="itemFlag"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></div> 
+        <div class="itemBody"><label for="user-<%= i %>"><%= user.full_name %></label></div>
+        <div class="itemHeader">
+          <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
+            <input class="user-share" id="user-share-<%= i %>" type="text"/>
+            <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
+            <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
+          </div>
+        </div>
+        <div class="itemHeader">
+          <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input class="user-amount user-paying" id="user-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+</div>
+
+
+<div class="col-md-2 control-label">
 <button type="submit" class="btn btn-theme pull-right">Save</button>
 </div>
 
