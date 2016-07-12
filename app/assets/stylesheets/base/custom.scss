@@ -4,46 +4,7 @@
     display: none;
   }
 }
-.divContainer{
-    display:table;
-    width:100%;
-    border-spacing:0 5px;
-}
 
-.item{
-    display:table-row;
-    height:45px;
-   line-height: 45px;
-    text-align: center;
-}
-
-.item > div {
-  background-color: #ccc;
-}
-
-.item > div:first-child {
-  border-radius: 10px 0 0 10px;
-  -moz-border-radius: 10px 0 0 10px;
-}
-
-.item > div:last-child {
-  border-radius: 0 10px 10px 0; 
-  -moz-border-radius: 0 10px 10px 0;
-}
-
-.itemHeader, .itemBody, .itemFlag{
-    display:table-cell;
-}
-
-.itemHeader{
-    width:100px;
-}
-
-.itemBody{
-    width:150px;
-}
-
-.itemFlag{
-    width:30px;
-
+.user-not-paying {
+    opacity: 0.3;
 }
