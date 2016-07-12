@@ -70,6 +70,9 @@ expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016", 
              :category => "Supplies", :details => "Toilet Paper and Such", 
              :deadline => "July 31, 2016", :paid_by => paul}, 
+            {:name => "Ramen", :amount => "24", :date => "July 11, 2016", 
+             :category => "Supplies", :details => "Amazon Ramen Subscription", 
+             :deadline => "August 21, 2016", :paid_by => yan}, 
             {:name => "Paper Towels", :amount => "23.50", :date => "June 13, 2016", 
              :category => "Supplies", :details => "Amazon Subscription", 
              :paid_by => gige}]
@@ -81,6 +84,7 @@ end
 june_rent = Expense.find_by_details("June Rent")
 amazon = Expense.find_by_details("Amazon Subscription")
 toiletries = Expense.find_by_details("Toilet Paper and Such")
+ramen = Expense.find_by_details("Amazon Ramen Subscription")
 
 ## CHARGES ##
 charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged_to => anne}, 
@@ -88,7 +92,14 @@ charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => gige},
            {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => val},
            {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => yan},
+           
+           {:completed => true, :amount => 6, :expense => ramen, :charged_to => gige},
+           {:completed => true, :amount => 6, :expense => ramen, :charged_to => anne},
+           {:completed => false, :amount => 6, :expense => ramen, :charged_to => paul},
+           {:completed => false, :amount => 6, :expense => ramen, :charged_to => val},
+
            {:completed => false, :amount => 10, :expense => toiletries, :charged_to => gige},
+           
            {:completed => true, :amount => 1100, :expense => amazon, :charged_to => val},
            {:completed => true, :amount => 1100, :expense => amazon, :charged_to => anne},
            {:completed => false, :amount => 1100, :expense => amazon, :charged_to => yan}]

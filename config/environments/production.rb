@@ -1,12 +1,6 @@
 Myapp::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_host_name => 'REMOVE_THIS_LINE_IF_UNNECESSARY',
-    :bucket => 'homie-rent'
-  }
-  
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -15,6 +9,16 @@ Myapp::Application.configure do
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
+
+  config.paperclip_defaults = {
+  storage: :s3,
+    s3_credentials: {
+      bucket: ENV.fetch('S3_BUCKET'),
+      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+      s3_region: ENV.fetch('AWS_REGION'),
+    }
+  }
 
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
