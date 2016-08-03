@@ -65,6 +65,11 @@
         calculateEqualCharges();
       } else if (splitMethod == "split-method-dollars") {
         $(".user-not-paying").val(0);
+        $(".user-paying").each(function() {
+          if ($(this).val() == 0) {
+            $(this).val("")
+          }
+        });
       } else {
         calculatePercentOrUnitCharges(splitMethod);
       }
