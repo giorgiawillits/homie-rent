@@ -1,56 +1,56 @@
     
-    <div class="ibox">
-      <div style="padding-bottom: 50px;" class="ibox-title">
-        <div class="form-group btn-group m-b-none pull-right" data-toggle="buttons">
-            <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
-              <input type="radio" value="equal" />
-              =
-            </label>
-            <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
-              <input type="radio" value="dollars" />
-              $
-            </label>
-            <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
-              <input type="radio" value="percent" />
-              %
-            </label>
-            <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
-              <input type="radio" value="unit" />
-              <i class="fa fa-th"></i>
-            </label>
-          </div>
-        <h5 style="padding-bottom: 15px;">Charge calculator</h5>
+<div class="ibox">
+  <div style="padding-bottom: 50px;" class="ibox-title">
+    <div class="form-group btn-group m-b-none pull-right" data-toggle="buttons">
+        <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
+          <input type="radio" value="equal" />
+          =
+        </label>
+        <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
+          <input type="radio" value="dollars" />
+          $
+        </label>
+        <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
+          <input type="radio" value="percent" />
+          %
+        </label>
+        <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
+          <input type="radio" value="unit" />
+          <i class="fa fa-th"></i>
+        </label>
       </div>
-      <% current_house_members.each_with_index do |user, i| %> 
-        <div class="ibox-content p-xxs">
-          <div class="table-responsive">
-            <table class="table shoping-cart-table">
-              <tbody>
-                <tr class="user-paying">
-                  <td class="col-md-1"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
-                  <td class="col-md-5 desc"><h3><div class="text-navy"><label for="user-<%= i %>"><%= user.full_name %></label></div></h3></td>
-                  <td class="col-md-3">
-                    <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-                      <input class="user-share form-control" id="user-share-<%= i %>" type="text"/>
-                      <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
-                      <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
-                    </div>
-                  </td>
-                  <td class="col-md-3">
-                    <!--<input type="text" class="form-control" placeholder="1">-->
-                    <div class="input-group">
-                      <span class="input-group-addon">$</span>
-                      <input class="user-amount user-paying form-control" id="user-input-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
-                    </div>
-                    <div class="hidden" id="user-amount-<%= i %>"><h4></h4></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      <% end %>
+    <h5 style="padding-bottom: 15px;">Charge calculator</h5>
+  </div>
+  
+  <% current_house_members.each_with_index do |user, i| %> 
+    <div class="ibox-content p-xxs">
+      <div class="table-responsive">
+        <table class="table shoping-cart-table">
+          <tbody>
+            <tr>
+              <td class="col-md-1"><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
+              <td class="col-md-5 desc"><h3><div class="text-navy"><label for="user-<%= i %>"><%= user.full_name %></label></div></h3></td>
+              <td class="col-md-3">
+                <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
+                  <input class="user-share form-control" id="user-share-<%= i %>" type="text"/>
+                  <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
+                  <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
+                </div>
+              </td>
+              <td class="col-md-3">
+                <div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input class="user-amount user-paying form-control" id="user-input-<%= i %>" data-row_id="<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+                </div>
+                <div class="hidden" id="user-amount-<%= i %>"><h4></h4></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  <% end %>
+</div>
   
   
   
@@ -64,7 +64,7 @@
       if (splitMethod == "split-method-equal") {
         calculateEqualCharges();
       } else if (splitMethod == "split-method-dollars") {
-        $(".user-paying,.user-not-paying").val(0);
+        $(".user-not-paying").val(0);
       } else {
         calculatePercentOrUnitCharges(splitMethod);
       }
@@ -101,31 +101,42 @@
       });
     }
     
+    // Update charge table when user is selected or unselected
     $(".split-checkbox").click(function() {
       $(this).toggleClass("fa-check-square-o fa-square-o");
-      $("#user-input" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
+      $("#user-input-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
       calculateCharges();
     });
     
+    // Re-calculate charges when total amount changes
     $("#amount").change(calculateCharges);
     
+    // Re-calculate charges when percent/unit amount changes
     $(".user-share").change(calculateCharges);
     
+    // Change split method
     $(".split-method").click(function() {
+      // hide any percent or unit specific elements
       $(".split-col-showing").toggleClass("hidden");
       $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
+      
       var splitMethod = $(this).attr("id");
+      
+      // show percent/unit specific elements if percent/unit method chosen
       $("." + splitMethod).toggleClass("hidden");
       $("." + splitMethod).toggleClass("split-col-showing split-col-hidden");
       
+      // set or unset readonly on dollar amount input
       if ((splitMethod == "split-method-equal" || splitMethod == "split-method-dollars") && $(".user-amount").attr("readonly")) {
         $(".user-amount").attr("readonly", false);
       } else if ((splitMethod == "split-method-percent" || splitMethod == "split-method-unit") && !$(".user-amount").attr("readonly")) {
         $(".user-amount").attr("readonly", true);
       }
       
+      // switch active split method and recalculate charges
       $(".split-method-active").toggleClass("split-method-active split-method-inactive");
       $(this).toggleClass("split-method-active split-method-inactive");
+      $(".user-paying,.user-not-paying").val("");
       calculateCharges();
     });
     
