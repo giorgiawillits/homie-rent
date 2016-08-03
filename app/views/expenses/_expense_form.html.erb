@@ -1,187 +1,65 @@
 <div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="name">Name</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control">
+      <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
-
+      
 <div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="amount">Amount</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control">
+      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
 
 <div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="date">Date</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group date">
-      <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control">
+      <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
 
 <div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="category">Category</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control">
+      <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
 
 <div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="details">Details</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control">
+      <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
 
-
-<div class="form-group btn-group" data-toggle="buttons">
-  <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
-    <input type="radio" value="equal" />
-    =
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
-    <input type="radio" value="dollars" />
-    $
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-percent">
-    <input type="radio" value="percent" />
-    %
-  </label>
-  <label class="btn btn-default split-method split-method-inactive" id="split-method-unit">
-    <input type="radio" value="unit" />
-    <i class="fa fa-th"></i>
-  </label>
-</div>
-
-
 <div class="form-group">
-  <div class="col-sm-2 control-label">
-    <label for="charge_to">Charge to:</label>
-  </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
-    <table>
-      <tbody>
-        <% current_house_members.each_with_index do |user, i| %> 
-          <tr>
-            <td>
-              <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input class="user-amount user-paying" id="user-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
-              </div>
-            </td>
-            <td>
-              <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-                <input class="user-percent" id="user-percentage-<%= i %>" type="text"/>
-                <span class="input-group-addon split-col-showing split-method-percent">%</span>
-                <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
-              </div>
-            </td>
-            <td><label for="user-<%= i %>"><%= user.full_name %></label></td>
-            <td><i class="fa fa-check-square-o split-font split-checkbox" data-row_id="<%= i %>"></i></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-sm-2 control-label">
+  <div class="col-md-3 control-label">
     <label for="deadline">Deadline</label>
   </div>
-  <div class="col-sm-10" style='margin-bottom:25px;'>
+  <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control">
+      <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
-
-<div class="col-sm-2 control-label">
-<button type="submit" class="btn btn-theme pull-right">Save</button>
-</div>
-
-
-
-<script>
-  $(document).ready(function() {
-    
-    var calculateCharges = function() {
-      console.log("here");
-      var splitMethod = $(".split-method-active").attr("id");
-      if (splitMethod == "split-method-equal") {
-        calculateEqualCharges();
-      } else if (splitMethod == "split-method-dollars") {
-        $(".user-paying,.user-not-paying").val(0);
-      } else if (splitMethod == "split-method-percent") {
-        calculatePercentCharges();
-      } else if (splitMethod == "split-method-unit") {
-        
-      }
-    }
-    
-    var calculateEqualCharges = function() {
-      var numUsers = $(".fa-check-square-o").length;
-      var equalAmount = $("#amount").val() / numUsers;
-      $(".user-paying").val(equalAmount);
-      $(".user-not-paying").val(0);
-    };
-    
-    var calculatePercentCharges = function() {
-      var total = $("#amount").val();
-      $(".fa-check-square-o").each(function() {
-        var rowId = $(this).data("row_id");
-        var percent = $("#user-percentage-" + rowId).val();
-        $("#user-" + rowId).val(total * percent / 100);
-      });
-    }
-    
-    $(".split-checkbox").click(function() {
-      $(this).toggleClass("fa-check-square-o fa-square-o");
-      $("#user-" + $(this).data("row_id")).toggleClass("user-paying user-not-paying");
-      calculateCharges();
-    });
-    
-    $("#amount").change(calculateCharges);
-    
-    $(".user-percent").change(calculateCharges);
-    
-    $(".split-method").click(function() {
-      $(".split-col-showing").toggleClass("hidden");
-      $(".split-col-showing").toggleClass("split-col-showing split-col-hidden");
-      var splitMethod = $(this).attr("id");
-      $("." + splitMethod).toggleClass("hidden");
-      $("." + splitMethod).toggleClass("split-col-showing split-col-hidden");
-      
-      if ((splitMethod == "split-method-equal" || splitMethod == "split-method-dollars") && $(".user-amount").attr("readonly")) {
-        $(".user-amount").attr("readonly", false);
-      } else if ((splitMethod == "split-method-percent" || splitMethod == "split-method-unit") && !$(".user-amount").attr("readonly")) {
-        $(".user-amount").attr("readonly", true);
-      }
-      
-      $(".split-method-active").toggleClass("split-method-active split-method-inactive");
-      $(this).toggleClass("split-method-active split-method-inactive");
-      calculateCharges();
-    });
-    
-  });
-</script>

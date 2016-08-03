@@ -1,6 +1,31 @@
 <!-- app/views/expenses/new.html.erb -->
-<h4>New Expense</h4>
 
-<%= form_tag expenses_path, :id => "expense_form" do %>
-  <%= render "expense_form" %>
-<% end %>
+
+
+<div class="ibox">
+  <div class="ibox-title">
+    <h4>New Expense</h4>
+  </div>
+  <div class="ibox-content">
+    <div class="row">
+      <%= form_tag expenses_path, :id => "expense_form" do %>
+        <div class="col-md-4">
+          <%= render "expense_form" %>
+        </div>
+        <div class="col-md-8">
+          <%= render "charge_form" %>
+        </div>
+        <div class="col-md-2 control-label">
+          <button class="btn btn-sm btn-white" type="submit">Save</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

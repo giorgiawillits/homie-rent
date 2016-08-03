@@ -25,7 +25,7 @@ class Expense < ActiveRecord::Base
   end
   
   def percent_complete
-    if not self.charges.length
+    if self.charges.length == 0
       return 0
     end
     complete = 0

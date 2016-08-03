@@ -16,12 +16,13 @@ class ExpensesController < ApplicationController
     expense.paid_by = current_user
     
     charge_to = params[:charges][:users]
-    amount = expense.amount/charge_to.length
     charge_to.each do |user_id, amnt|
-      charge = Charge.new(:completed => false, :amount => amount)
-      expense.charges << charge
-      charge.charged_to = User.find_by_id(user_id)
-      charge.save
+      if amnt.to_i > 0
+        charge = Charge.new(:completed => false, :amount => amnt)
+        expense.charges << charge
+        charge.charged_to = User.find_by_id(user_id)
+        charge.save
+      end
     end
     
     if expense.save

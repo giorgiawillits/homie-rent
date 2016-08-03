@@ -65,7 +65,7 @@
                 </td>
                 <td class="project-actions">
                   <%= link_to  ('Edit ' + fa_icon("pencil") ).html_safe, edit_expense_path(expense), {:class => "btn btn-info btn-xs"} %>
-                  <%= link_to ('Delete ' + fa_icon("trash") ).html_safe,  expense_path(expense), {:method => "delete", :class => "btn btn-danger btn-xs"} %>
+                  <%= link_to ('Delete ' + fa_icon("trash") ).html_safe,  expense_path(expense), :method => "delete", :class => "btn btn-danger btn-xs" %>
                 </td>
               </tr>
               <% end %>
