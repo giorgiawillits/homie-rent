@@ -12,6 +12,10 @@ class Expense < ActiveRecord::Base
     self.deadline.strftime("%a, %b #{self.deadline.day.ordinalize}")
   end
   
+  def amount_formatted
+    "$%.2f" % self.amount
+  end
+  
   def completed?
     self.charges.all? { |charge| charge.completed }
   end

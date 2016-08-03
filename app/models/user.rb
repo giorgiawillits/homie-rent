@@ -21,6 +21,35 @@ class User < ActiveRecord::Base
   has_many :expenses, :foreign_key => "paid_by_id"
   has_many :charges, :through => :expenses, :foreign_key => "charged_to_id"
   
+  def all_activities
+    activities = []
+    self.expenses.each do |expense|
+      activity = {}
+      activity['type'] = 'expense'
+      activity['expense'] = expense
+      activity['date'] = expense.date
+      activities += [activity]
+    end
+    self.charged_against.each do |charge|
+      activity = {}
+      activity['type'] = 'charge'
+      activity['creator'] = charge.paid_by
+      activity['recipient'] = charge.charged_to
+      activity['amount'] = charge.amount_formatted
+      activity['date'] = charge.created_at
+      activity['date_formatted'] = charge.date_formatted
+      activity['reason'] = charge.expense.name
+      activities += [activity]
+    end
+    activities.sort do |a, b|
+      b['date'] <=> a['date']
+    end
+  end
+  
+  def charged_against
+    Charge.where(:charged_to_id=>self.id).to_a
+  end
+  
   def full_name
     self.first_name.capitalize + " " + self.last_name.capitalize
   end 
