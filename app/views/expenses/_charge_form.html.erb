@@ -98,10 +98,10 @@
         var rowId = $(this).data("row_id");
         if ($(this).hasClass("user-paying")) {
           var units = $("#user-share-" + rowId).val();
-          $("#user-amount" + rowId).val(unitPrice * units);
+          $("#user-input-" + rowId).val(unitPrice * units);
         } else {
           $("#user-share-" + rowId).val(0);
-          $("#user-amount" + rowId).val(0);
+          $("#user-input-" + rowId).val(0);
         }
       });
     }
