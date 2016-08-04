@@ -119,9 +119,9 @@
         totalAssigned += Number($(this).val());
       });
       var amountRemaining = total - totalAssigned;
-      console.log(amountRemaining);
     }
     
+    // Re-calculate amount remaining when user-amount changes (split-method-dollars)
     $(".user-amount").change(function() {
       calculateAmountRemaining($("#amount").val(), ".user-amount")
     });
