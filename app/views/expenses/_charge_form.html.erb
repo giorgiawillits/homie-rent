@@ -81,11 +81,10 @@
         var totalUnits = 100;
       } else {
         var totalUnits = 0;
-        $(".user-share").each(function() {
+        $(".user-paying").find(".user-share").each(function() {
           totalUnits += Number($(this).val());
         });
       }
-      console.log(totalUnits)
       var unitPrice = 0;
       if (totalUnits != 0) {
         unitPrice = $("#amount").val() / totalUnits;
