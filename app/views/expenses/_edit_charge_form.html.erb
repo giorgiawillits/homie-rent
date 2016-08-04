@@ -61,7 +61,7 @@
 <script>
   $(document).ready(function() {
     
-    var editMode = $("#split-method-dollars").hasClass("active");
+    editMode = $("#split-method-dollars").hasClass("active");
     
     var calculateCharges = function() {
       var splitMethod = $(".split-method-active").attr("id");
@@ -169,9 +169,13 @@
       // switch active split method and recalculate charges
       $(".split-method-active").toggleClass("split-method-active split-method-inactive");
       $(this).toggleClass("split-method-active split-method-inactive");
-      $(".user-amount").val("");
-      $(".user-share").val("");
-      calculateCharges();
+      
+      if (!editMode) {
+        $(".user-amount").val("");
+        $(".user-share").val("");
+        calculateCharges();
+      }
+      
     });
     
   });
