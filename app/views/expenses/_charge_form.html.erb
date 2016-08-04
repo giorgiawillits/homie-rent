@@ -52,8 +52,6 @@
   
   
   
-  
-  
 <script>
   $(document).ready(function() {
     
@@ -102,6 +100,7 @@
         }
         $(this).find(".user-amount").val(unitPrice * unitsInput.val());
       });
+      calculateAmountRemaining(100, ".user-share");
     }
     
     var displayDollarCharges = function() {
@@ -111,7 +110,21 @@
           $(this).val("")
         }
       });
+      calculateAmountRemaining($("#amount").val(), ".user-amount");
     }
+    
+    var calculateAmountRemaining = function(total, inputClass) {
+      var totalAssigned = 0;
+      $(".user-paying").find(inputClass).each(function() {
+        totalAssigned += Number($(this).val());
+      });
+      var amountRemaining = total - totalAssigned;
+      console.log(amountRemaining);
+    }
+    
+    $(".user-amount").change(function() {
+      calculateAmountRemaining($("#amount").val(), ".user-amount")
+    });
     
     // Update charge table when user is selected or unselected
     $(".split-checkbox").click(function() {
