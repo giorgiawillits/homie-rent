@@ -2,11 +2,11 @@
 <div class="ibox">
   <div style="padding-bottom: 50px;" class="ibox-title">
     <div class="form-group btn-group m-b-none pull-right" data-toggle="buttons">
-        <label class="btn btn-default split-method split-method-active active" id="split-method-equal">
+        <label class="btn btn-default split-method split-method-<%= @expense ? 'inactive' : 'active active'%>" id="split-method-equal">
           <input type="radio" value="equal" />
           =
         </label>
-        <label class="btn btn-default split-method split-method-inactive" id="split-method-dollars">
+        <label class="btn btn-default split-method split-method-<%= @expense ? 'active active' : 'inactive'%>" id="split-method-dollars">
           <input type="radio" value="dollars" />
           $
         </label>
@@ -40,7 +40,7 @@
               <div class="input-group">
                 <span class="input-group-addon">$</span>
                 <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]"
-                  value="<%= @charges[user].amount if @charges[user] %>">
+                  value="<%= @charges[user].amount if @charges and @charges[user] %>">
               </div>
             </td>
           </tr></tbody>
