@@ -62,12 +62,7 @@
       if (splitMethod == "split-method-equal") {
         calculateEqualCharges();
       } else if (splitMethod == "split-method-dollars") {
-        $(".user-not-paying").find(".user-amount").val(0);
-        $(".user-paying").find(".user-amount").each(function() {
-          if ($(this).val() == 0) {
-            $(this).val("")
-          }
-        });
+        displayDollarCharges();
       } else {
         calculatePercentOrUnitCharges(splitMethod);
       }
@@ -90,25 +85,31 @@
           totalUnits += Number($(this).val());
         });
       }
+      console.log(totalUnits)
       var unitPrice = 0;
       if (totalUnits != 0) {
         unitPrice = $("#amount").val() / totalUnits;
       }
       
-      // shares: fill checked rows with "" if 0, fill unchecked rows shares with 0
-      // amounts: fill checked rows with amount, fill unchecked rows with 0
-      $(".split-row").each(function() {
+      // unchecked: fill shares with 0, fill amount with 0
+      $(".user-not-paying").find(".user-share").val(0);
+      $(".user-not-paying").find(".user-amount").val(0);
+      
+      // checked: fill shares with "" if 0, fill amount
+      $(".user-paying").each(function() {
         var unitsInput = $(this).find(".user-share");
-        var amountInput = $(this).find(".user-amount");
-        if ($(this).hasClass("user-paying")) {
-          var units = unitsInput.val();
-          if (units == 0) {
-            unitsInput.val("");
-          }
-          amountInput.val(unitPrice * units);
-        } else {
-          unitsInput.val(0);
-          amountInput.val(0);
+        if (unitsInput.val() == 0) {
+          unitsInput.val("");
+        }
+        $(this).find(".user-amount").val(unitPrice * unitsInput.val());
+      });
+    }
+    
+    var displayDollarCharges = function() {
+      $(".user-not-paying").find(".user-amount").val(0);
+      $(".user-paying").find(".user-amount").each(function() {
+        if ($(this).val() == 0) {
+          $(this).val("")
         }
       });
     }
