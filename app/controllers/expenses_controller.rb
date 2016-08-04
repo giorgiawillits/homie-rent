@@ -34,6 +34,10 @@ class ExpensesController < ApplicationController
   
   def edit
     @expense = Expense.find_by_id(params[:id])
+    @charges = {}
+    @expense.charges.each do |charge|
+      @charges[charge.charged_to] = charge
+    end
   end
   
   def update

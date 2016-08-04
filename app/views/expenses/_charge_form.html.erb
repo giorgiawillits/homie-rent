@@ -39,7 +39,8 @@
             <td class="col-md-3">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]">
+                <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]"
+                  value="<%= @charges[user].amount if @charges[user] %>">
               </div>
             </td>
           </tr></tbody>
