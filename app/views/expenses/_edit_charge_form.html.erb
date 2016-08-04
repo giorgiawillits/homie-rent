@@ -74,6 +74,19 @@
       }
     }
     
+    var calculateChargesEditMode = function() {
+      var splitMethod = $(".split-method-active").attr("id");
+      if (splitMethod == "split-method-equal") {
+        calculateEqualCharges();
+      } else if (splitMethod == "split-method-dollars") {
+        displayDollarCharges();
+      } else {
+        $(".user-paying").each(function() {
+          $(this).find(".user-share").val($(this).find(".user-amount").val() / $("#amount").val() * 100);
+        });
+      }
+    }
+    
     var calculateEqualCharges = function() {
       var numUsers = $(".user-paying").length;
       var equalAmount = $("#amount").val() / numUsers;
@@ -174,6 +187,8 @@
         $(".user-amount").val("");
         $(".user-share").val("");
         calculateCharges();
+      } else {
+          calculateChargesEditMode();
       }
       
     });
