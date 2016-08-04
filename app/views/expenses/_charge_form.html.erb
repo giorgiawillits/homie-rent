@@ -26,12 +26,12 @@
     <div class="ibox-content p-xxs">
       <div class="table-responsive">
         <table class="table shoping-cart-table">
-          <tbody><tr class="split-row user-paying" data-row_id="<%= i %>">
+          <tbody><tr class="split-row user-paying">
             <td class="col-md-1"><i class="fa fa-check-square-o split-font split-checkbox"></i></td>
             <td class="col-md-5 desc"><h3><div class="text-navy"><label for="user-<%= i %>"><%= user.full_name %></label></div></h3></td>
             <td class="col-md-3">
               <div class="input-group split-col-hidden hidden split-method-percent split-method-unit">
-                <input class="form-control user-share" id="user-share-<%= i %>" type="text"/>
+                <input class="form-control user-share" type="text"/>
                 <span class="input-group-addon split-col-hidden hidden split-method-percent">%</span>
                 <span class="input-group-addon split-col-hidden hidden split-method-unit">units</span>
               </div>
@@ -39,9 +39,9 @@
             <td class="col-md-3">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input class="form-control user-amount" id="user-input-<%= i %>" type="text" name="charges[users][<%= user.id %>]">
+                <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]">
               </div>
-              <div class="hidden" id="user-amount-<%= i %>"><h4></h4></div>
+              <div class="hidden"><h4></h4></div>
             </td>
           </tr></tbody>
         </table>
