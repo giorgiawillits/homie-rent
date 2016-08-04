@@ -10,4 +10,13 @@ class Charge < ActiveRecord::Base
     
   end
   
+  def date_formatted
+    self.created_at.strftime("%a, %b #{self.created_at.day.ordinalize}")
+  end
+  
+  def amount_formatted
+    "$%.2f" % self.amount
+    # "$%.2f".format(self.amount)
+  end
+  
 end
