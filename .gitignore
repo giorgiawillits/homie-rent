@@ -4,14 +4,14 @@ capybara-*.html
 /log
 /tmp
 *.sqlite3
-/db/*.sqlite3-journal
-*.sqlite3
+/db/*.sqlite3-journalsudo rudix install wget
 /public/system
 /coverage/
 /spec/tmp
 **.orig
 rerun.txt
 pickle-email-*.html
+ngrok
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
