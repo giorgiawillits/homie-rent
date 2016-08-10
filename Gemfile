@@ -33,6 +33,9 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# Twilio Gem
+gem 'twilio-ruby'
+
 # For Storing pictures
 gem 'paperclip'
 gem 'aws-sdk'

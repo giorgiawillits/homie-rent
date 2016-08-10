@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   resources :expenses
   resources :users
   
+  post '/twilio/reply'  => 'twilio#reply', as: :twilio_reply
+  
   get 'home/index'
   get 'home/minor'
   
