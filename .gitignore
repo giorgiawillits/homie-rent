@@ -4,8 +4,7 @@ capybara-*.html
 /log
 /tmp
 *.sqlite3
-/db/*.sqlite3-journal
-*.sqlite3
+/db/*.sqlite3-journalsudo rudix install wget
 /public/system
 /coverage/
 /spec/tmp
