@@ -3,12 +3,12 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_attached_file :avatar, 
-  :default_url => "http://purelieve.com/wp-content/themes/massage/img/user.jpg", 
-  styles: {
-    thumb: '100x100>',
-    square: '200x200#',
-    medium: '300x300>'
-  }
+    :default_url => "http://purelieve.com/wp-content/themes/massage/img/user.jpg", 
+    styles: {
+      thumb: '100x100>',
+      square: '200x200#',
+      medium: '300x300>'
+    }
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
   
@@ -24,25 +24,27 @@ class User < ActiveRecord::Base
   def all_activities
     activities = []
     self.expenses.each do |expense|
-      activity = {}
-      activity['type'] = 'expense'
-      activity['expense'] = expense
-      activity['date'] = expense.date
-      activities += [activity]
+      # activity = {}
+      # activity['type'] = 'expense'
+      # activity['expense'] = expense
+      # activity['date'] = expense.date
+      activities += [{:type => "expense", :object => expense}]
     end
     self.charged_against.each do |charge|
-      activity = {}
-      activity['type'] = 'charge'
-      activity['creator'] = charge.paid_by
-      activity['recipient'] = charge.charged_to
-      activity['amount'] = charge.amount_formatted
-      activity['date'] = charge.created_at
-      activity['date_formatted'] = charge.date_formatted
-      activity['reason'] = charge.expense.name
-      activities += [activity]
+      # activity = {}
+      # activity['type'] = 'charge'
+      # activity['creator'] = charge.paid_by
+      # activity['recipient'] = charge.charged_to
+      # activity['amount'] = charge.amount_formatted
+      # activity['date'] = charge.created_at
+      # activity['date_formatted'] = charge.date_formatted
+      # activity['reason'] = charge.expense.name
+      activities += [{:type => "charge", :object => charge}]
     end
     activities.sort do |a, b|
-      b['date'] <=> a['date']
+      puts "A", a
+      puts "B", b
+      b[:object].created_at <=> a[:object].created_at
     end
   end
   

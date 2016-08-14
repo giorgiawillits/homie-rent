@@ -20,9 +20,6 @@ Rails.application.routes.draw do
   
   post '/twilio/reply'  => 'twilio#reply', as: :twilio_reply
   
-  get 'home/index'
-  get 'home/minor'
-  
   get '/signup' => 'users#new'
   # post '/users' => 'users#create'
   

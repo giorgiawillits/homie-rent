@@ -538,6 +538,28 @@ code {
   border-width: 1px 0;
 }
 
+.ibox-content-table {
+  background-color: $ibox-content-bg;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+
+  border-color: $nav-bg;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
+}
+
+.ibox-content-theme {
+  background-color: $ibox-content-bg;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+
+  border-color: $navy;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
+}
+
 .ibox-footer {
   color: inherit;
   border-top: 1px solid $border-color;
@@ -1068,6 +1090,10 @@ a.close-canvas-menu:hover {
   margin-top: 5px;
 }
 
+.m-t-s {
+  margin-top: 6px;
+}
+
 .m-t-sm {
   margin-top: 10px;
 }
@@ -1138,6 +1164,10 @@ a.close-canvas-menu:hover {
 
 .m-r-md {
   margin-right: 20px;
+}
+
+.m-r-mdd {
+  margin-right: 20px !important;
 }
 
 .m-r-lg {

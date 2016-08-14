@@ -11,7 +11,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="#">Logout</a></li>
+                        <li><a href="/logout">Logout</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -20,15 +20,9 @@
             </li>
             <li class="<%= 'active' if current_page?('/') %>">
                 <%= link_to "/expenses" do %>
-                <i class="fa fa-laptop"></i> <span class="nav-label">Expenses</span>
-                <% end %>
-            </li>
-            <li class="<%= 'active' if current_page?('/home/minor') %>">
-                <%= link_to "/home/minor" do %>
-                <i class="fa fa-desktop"></i> <span class="nav-label">Minor page</span>
+                <i class="fa fa-home"></i> <span class="nav-label">Home</span>
                 <% end %>
             </li>
         </ul>
-
     </div>
 </nav>

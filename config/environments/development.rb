@@ -16,6 +16,7 @@ Myapp::Application.configure do
       s3_region: ENV.fetch('AWS_REGION'),
     }
   }
+  Paperclip.options[:command_path] = "/usr/local/bin/"
   # Do not eager load code on boot.
   config.eager_load = false
 
