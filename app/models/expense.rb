@@ -54,18 +54,20 @@ class Expense < ActiveRecord::Base
     deadline_str = deadline_formatted
     paid_by_name = self.paid_by.first_name.capitalize
     late_fee = 50
+    expense = self.name
 
     self.charges.each do |charge|
       if not charge.completed
         name = charge.charged_to.first_name.capitalize
         amount = charge.amount
         phone_number = charge.charged_to.phone_number
-        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} by #{deadline_str} in order to avoid a late fee of $#{late_fee}."
+        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str}"
+        late_fee = " in order to avoid a late fee of $#{late_fee}."
 
         message = @client.account.messages.create(
           :from => @twilio_number,
           :to => phone_number,
-          :body => reminder)
+          :body => reminder + late_fee)
       end
     end
   end
