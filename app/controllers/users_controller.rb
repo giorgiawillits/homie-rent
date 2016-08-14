@@ -38,7 +38,7 @@ class UsersController < ApplicationController
       redirect_to '/signup'
     end
   end
-  
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -72,7 +72,6 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       puts @params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :avatar)
+      params.require(:user).permit(:first_name, :last_name, :phone_number, :email, :password, :password_confirmation, :avatar)
     end
 end
-

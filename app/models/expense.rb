@@ -3,27 +3,32 @@
 class Expense < ActiveRecord::Base
   belongs_to :paid_by, :class_name => "User"
   has_many :charges
-  
+
+  after_create :reminder
+
+  # @@REMINDER_TIME = 1.day # days before deadline
+  @@REMINDER_TIME = 5.minutes # days before deadline
+
   def date_formatted
     self.date.strftime("%a, %b #{self.date.day.ordinalize}")
   end
-  
+
   def deadline_formatted
     self.deadline.strftime("%a, %b #{self.deadline.day.ordinalize}")
   end
-  
+
   def amount_formatted
     "$%.2f" % self.amount
   end
-  
+
   def completed?
     self.charges.all? { |charge| charge.completed }
   end
-  
+
   def overdue?
-    self.deadline and self.deadline < Time.now 
+    self.deadline and self.deadline < Time.now
   end
-  
+
   def percent_complete
     if self.charges.length == 0
       return 0
@@ -36,5 +41,34 @@ class Expense < ActiveRecord::Base
     end
     decimal = complete.to_f / self.charges.length
     return (decimal * 100).to_i.to_s
-  end 
+  end
+
+  def when_to_run
+    self.deadline - @@REMINDER_TIME
+  end
+
+  # Notify those charged who havent paid yet X days before the deadline
+  def reminder
+    @twilio_number = ENV['TWILIO_NUMBER']
+    @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
+    deadline_str = deadline_formatted
+    paid_by_name = self.paid_by.first_name.capitalize
+    late_fee = 50
+
+    self.charges.each do |charge|
+      if not charge.completed
+        name = charge.charged_to.first_name.capitalize
+        amount = charge.amount
+        phone_number = charge.charged_to.phone_number
+        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} by #{deadline_str} in order to avoid a late fee of $#{late_fee}."
+
+        message = @client.account.messages.create(
+          :from => @twilio_number,
+          :to => phone_number,
+          :body => reminder)
+      end
+    end
+  end
+  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
+
 end
