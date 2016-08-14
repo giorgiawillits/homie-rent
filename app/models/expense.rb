@@ -61,7 +61,7 @@ class Expense < ActiveRecord::Base
         name = charge.charged_to.first_name.capitalize
         amount = charge.amount
         phone_number = charge.charged_to.phone_number
-        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{self.id}."
+        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
 
         message = @client.account.messages.create(
           :from => @twilio_number,
