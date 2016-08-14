@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708062858) do
+ActiveRecord::Schema.define(version: 20160814013956) do
 
   create_table "charges", force: :cascade do |t|
     t.boolean  "completed"
@@ -24,6 +24,22 @@ ActiveRecord::Schema.define(version: 20160708062858) do
 
   add_index "charges", ["charged_to_id"], name: "index_charges_on_charged_to_id"
   add_index "charges", ["expense_id"], name: "index_charges_on_expense_id"
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "expenses", force: :cascade do |t|
     t.string   "name"
@@ -57,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160708062858) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "phone_number"
   end
 
   add_index "users", ["house_id"], name: "index_users_on_house_id"
