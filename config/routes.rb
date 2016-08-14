@@ -19,7 +19,6 @@ Rails.application.routes.draw do
   resources :users
 
   post '/twilio/reply'  => 'twilio#reply', as: :twilio_reply
-  post '/twilio/reply_to_reminder'  => 'twilio#reply_to_reminder', as: :twilio_reply_to_reminder
 
   get 'home/index'
   get 'home/minor'
