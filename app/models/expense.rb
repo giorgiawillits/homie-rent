@@ -7,7 +7,7 @@ class Expense < ActiveRecord::Base
   after_create :reminder
 
   # @@REMINDER_TIME = 1.day # days before deadline
-  @@REMINDER_TIME = 5.minutes # days before deadline
+  @@REMINDER_TIME = 1.minute # days before deadline
 
   def date_formatted
     self.date.strftime("%a, %b #{self.date.day.ordinalize}")
@@ -53,7 +53,7 @@ class Expense < ActiveRecord::Base
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
     deadline_str = deadline_formatted
     paid_by_name = self.paid_by.first_name.capitalize
-    late_fee = 50
+    late_fee = 50.to_s
     expense = self.name
 
     self.charges.each do |charge|
@@ -61,13 +61,12 @@ class Expense < ActiveRecord::Base
         name = charge.charged_to.first_name.capitalize
         amount = charge.amount
         phone_number = charge.charged_to.phone_number
-        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str}"
-        late_fee = " in order to avoid a late fee of $#{late_fee}."
+        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{self.id}."
 
         message = @client.account.messages.create(
           :from => @twilio_number,
           :to => phone_number,
-          :body => reminder + late_fee)
+          :body => reminder)
       end
     end
   end

@@ -27,25 +27,25 @@ users = {gdi => [{:first_name => 'Giorgia', :last_name => 'Willits',
                    :phone_number => '+17147884536', :email => 'gw@berkeley.edu',
                    :password => 'gw'},
                   {:first_name => 'Valeriya', :last_name => 'Imeshiva',
-                   :phone_number => '+17147884536', :email => 'vi@berkeley.edu',
+                   :phone_number => '+14444444444', :email => 'vi@berkeley.edu',
                    :password => 'vi'},
                   {:first_name => 'Anne', :last_name => 'Zeng',
-                   :phone_number => '+17147884536', :email => 'az@berkeley.edu',
+                   :phone_number => '+17148759292', :email => 'az@berkeley.edu',
                    :password => 'az'},
                   {:first_name => 'Pauline', :last_name => 'Duprat',
-                   :phone_number => '+17147884536', :email => 'pd@berkeley.edu',
+                   :phone_number => '+14444444444', :email => 'pd@berkeley.edu',
                    :password => 'pd'},
                   {:first_name => 'Yannie', :last_name => 'Yip',
-                   :phone_number => '+17147884536', :email => 'yy@berkeley.edu',
+                   :phone_number => '+15555555555', :email => 'yy@berkeley.edu',
                    :password => 'yy'} ],
          ato => [{:first_name => 'Eric', :last_name => 'Nelson',
-                   :phone_number => '+17147884536', :email => 'en@berkeley.edu',
+                   :phone_number => '+11111111111', :email => 'en@berkeley.edu',
                    :password => 'en'},
                   {:first_name => 'Aran', :last_name => 'Bahl',
-                   :phone_number => '+17147884536', :email => 'ab@berkeley.edu',
+                   :phone_number => '+12222222222', :email => 'ab@berkeley.edu',
                    :password => 'ab'},
                   {:first_name => 'Shane', :last_name => 'Barrat',
-                   :phone_number => '+17147884536', :email => 'sb@berkeley.edu',
+                   :phone_number => '+13333333333', :email => 'sb@berkeley.edu',
                    :password => 'sb'}]}
 
 user_instances = []
@@ -68,16 +68,19 @@ yan = User.find_by_first_name("Yannie")
 expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
              :category => "Rent", :details => "June Rent",
             #  :deadline => "June 1, 2016", :paid_by => gige},
-             :deadline => "2016-08-13 21:10:00", :paid_by => gige},
+             :deadline => "2016-08-13 23:27:00", :paid_by => gige},
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016",
              :category => "Supplies", :details => "Toilet Paper and Such",
-             :deadline => "July 31, 2016", :paid_by => paul},
+            #  :deadline => "July 31, 2016", :paid_by => paul},
+             :deadline => "2016-08-23 21:57:00", :paid_by => gige},
             {:name => "Ramen", :amount => "24", :date => "July 11, 2016",
              :category => "Supplies", :details => "Amazon Ramen Subscription",
-             :deadline => "August 21, 2016", :paid_by => yan},
+            #  :deadline => "August 21, 2016", :paid_by => yan},
+             :deadline => "2016-08-23 21:58:00", :paid_by => gige},
             {:name => "Paper Towels", :amount => "23.50", :date => "June 13, 2016",
              :category => "Supplies", :details => "Amazon Subscription",
-             :deadline => "August 21, 2016", :paid_by => gige}]
+            #  :deadline => "August 21, 2016", :paid_by => gige}]
+             :deadline => "2016-08-23 21:59:00", :paid_by => gige}]
 
 expense_instances = []
 expenses.each do |expense|
@@ -90,10 +93,10 @@ ramen = Expense.find_by_details("Amazon Ramen Subscription")
 
 ## CHARGES ##
 charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged_to => anne},
-           {:completed => false, :amount => 650, :expense => june_rent, :charged_to => paul},
+           {:completed => true, :amount => 650, :expense => june_rent, :charged_to => paul},
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => gige},
-           {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => val},
-           {:completed => false, :amount => 1100, :expense => june_rent, :charged_to => yan},
+           {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => val},
+           {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => yan},
 
            {:completed => true, :amount => 6, :expense => ramen, :charged_to => gige},
            {:completed => true, :amount => 6, :expense => ramen, :charged_to => anne},
