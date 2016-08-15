@@ -4,7 +4,9 @@
       <th>Name</th>
       <th>Amount</th>
       <th>Completed</th>
-      <th></th>
+      <th>
+        <button class="send-reminder-button pull-right btn btn-sm btn-primary btn-block" type="button">Send Reminders</button>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +18,7 @@
           <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
         </td>
         <td>
+          <input type="checkbox" class="reminder-checkbox" id="<%= charge.id %>" <%= 'checked' if !charge.completed %>/>
         </td>
       </tr>
     <% end %>
@@ -24,6 +27,7 @@
 
 <script>
   $(document).ready(function() {
+    
     // Update charge status when completed box is clicked
     $(".charge-status").click(function() {
       var mark_completed = $(this).hasClass("glyphicon-remove");
@@ -37,5 +41,10 @@
         }
       });
     });
+    
+    // Send reminders for all checked charges
+    $(".send-reminder-button").click(function() {
+    });
+    
   })
 </script>
