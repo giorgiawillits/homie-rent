@@ -36,6 +36,12 @@ gem 'bcrypt', '~> 3.1.7'
 # Twilio Gem
 gem 'twilio-ruby'
 
+# Use delayed job for running background jobs
+gem 'delayed_job_active_record'
+
+# Need daemons to start delayed_job
+gem 'daemons'
+
 # For Storing pictures
 gem 'paperclip'
 gem 'aws-sdk'
@@ -56,4 +62,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

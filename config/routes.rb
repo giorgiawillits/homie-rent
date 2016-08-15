@@ -17,16 +17,16 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :expenses
   resources :users
-  
+
   post '/twilio/reply'  => 'twilio#reply', as: :twilio_reply
-  
+
   get '/signup' => 'users#new'
   # post '/users' => 'users#create'
-  
+
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-  
+
   get '/mark_completed/:id' => 'charges#mark_completed', as: :mark_completed
 
   # Example resource route with options:
