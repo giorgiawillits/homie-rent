@@ -13,6 +13,13 @@ class TwilioController < ApplicationController
     render xml: {}
   end
 
+  def send_reminders
+    expense = Expense.find_by_id(params[:expense_id])
+    charges = expense.charges.where(id: params[:charge_ids])
+    expense.send_reminders charges
+    render json: {}
+  end
+
   def request_completed_confirmation charge_id, from_number
       charge = Charge.find_by_id(charge_id)
       expense_name = charge.expense.name

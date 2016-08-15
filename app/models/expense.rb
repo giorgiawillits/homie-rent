@@ -49,27 +49,29 @@ class Expense < ActiveRecord::Base
 
   # Notify those charged who havent paid yet X days before the deadline
   def reminder
+    send_reminders self.charges.where(:completed => false)
+  end
+  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
+  
+  def send_reminders charges
     @twilio_number = ENV['TWILIO_NUMBER']
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
     deadline_str = deadline_formatted
     paid_by_name = self.paid_by.first_name.capitalize
     late_fee = 50.to_s
-    expense = self.name
+    expense_name = self.name
 
-    self.charges.each do |charge|
-      if not charge.completed
-        name = charge.charged_to.first_name.capitalize
-        amount = charge.amount
-        phone_number = charge.charged_to.phone_number
-        reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
+    charges.each do |charge|
+      name = charge.charged_to.first_name.capitalize
+      amount = charge.amount
+      phone_number = charge.charged_to.phone_number
+      reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
 
-        message = @client.account.messages.create(
-          :from => @twilio_number,
-          :to => phone_number,
-          :body => reminder)
-      end
+      message = @client.account.messages.create(
+        :from => @twilio_number,
+        :to => phone_number,
+        :body => reminder)
     end
   end
-  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
 
 end

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :users
 
   post '/twilio/reply'  => 'twilio#reply', as: :twilio_reply
+  get '/twilio/send_reminders/:expense_id'  => 'twilio#send_reminders', as: :twilio_send_reminders
 
   get '/signup' => 'users#new'
   # post '/users' => 'users#create'

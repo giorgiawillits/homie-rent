@@ -5,7 +5,7 @@
       <th>Amount</th>
       <th>Completed</th>
       <th>
-        <button class="send-reminder-button pull-right btn btn-sm btn-primary btn-block" type="button">Send Reminders</button>
+        <button class="send-reminder-button pull-right btn btn-sm btn-primary btn-block" id="<%= @expense.id %>" type="button">Send Reminders</button>
       </th>
     </tr>
   </thead>
@@ -18,7 +18,11 @@
           <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
         </td>
         <td>
-          <input type="checkbox" class="reminder-checkbox" id="<%= charge.id %>" <%= 'checked' if !charge.completed %>/>
+          <input type="checkbox" 
+                 class="reminder-checkbox" 
+                 id="<%= charge.id %>" 
+                 <%= 'checked' if !charge.completed %>
+                 <%= 'disabled' if charge.completed %>/>
         </td>
       </tr>
     <% end %>
@@ -44,6 +48,16 @@
     
     // Send reminders for all checked charges
     $(".send-reminder-button").click(function() {
+      expense_id = $(this).attr("id")
+      charges = $(".reminder-checkbox:checkbox:checked").attr("id")
+      $.ajax({
+        type: "GET",
+        url: '/twilio/send_reminders' + expense_id,
+        data: {charge_ids: charges},
+        success: function(result) {
+          // display "reminders have been sent"
+        }
+      });
     });
     
   })
