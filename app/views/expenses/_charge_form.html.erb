@@ -2,7 +2,7 @@
   <div class="ibox-content-table p-xxs">
     <div class="table-responsive">
       <table class="table shoping-cart-table">
-        <tbody><tr class="split-row user-paying">
+        <tbody><tr class="split-row <%= (@charges and !@charges[user]) ? 'user-not-paying': 'user-paying' %>">
           <td class="col-md-1"><i class="m-t-s fa fa-check-square-o split-checkbox split-checkbox-font"></i></td>
           <td class="col-md-5 desc"><h3><div class="text-navy"><label for="user-<%= i %>"><%= user.full_name %></label></div></h3></td>
           <td class="col-md-3">
@@ -15,8 +15,16 @@
           <td class="col-md-3">
             <div class="input-group">
               <span class="input-group-addon">$</span>
-              <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]">
+              <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]"
+                value="<%= (@charges[user] ? @charges[user].amount : 0) if @charges %>">
             </div>
+            
+            <div class="input-group hidden">
+              <span class="input-group-addon">$</span>
+              <input class="form-control user-original-amount" type="text" 
+                value="<%= @charges and @charges[user] ? @charges[user].amount : 0 %>">
+            </div>
+            
           </td>
         </tr></tbody>
       </table>
@@ -28,12 +36,13 @@
     <button class="pull-right btn btn-sm btn-primary btn-block" type="submit">Save</button>
   </div>
 </div>
-<!-- </div> -->
   
   
   
 <script>
   $(document).ready(function() {
+    
+    editMode = $("#split-method-dollars").hasClass("active");
     
     var calculateCharges = function() {
       var splitMethod = $(".split-method-active").attr("id");
@@ -43,6 +52,19 @@
         displayDollarCharges();
       } else {
         calculatePercentOrUnitCharges(splitMethod);
+      }
+    }
+    
+    var calculateChargesEditMode = function() {
+      var splitMethod = $(".split-method-active").attr("id");
+      if (splitMethod == "split-method-equal") {
+        calculateEqualCharges();
+      } else if (splitMethod == "split-method-dollars") {
+        displayDollarCharges();
+      } else {
+        $(".user-paying").each(function() {
+          $(this).find(".user-share").val($(this).find(".user-amount").val() / $("#amount").val() * 100);
+        });
       }
     }
     
@@ -141,9 +163,15 @@
       // switch active split method and recalculate charges
       $(".split-method-active").toggleClass("split-method-active split-method-inactive");
       $(this).toggleClass("split-method-active split-method-inactive");
-      $(".user-amount").val("");
-      $(".user-share").val("");
-      calculateCharges();
+      
+      if (!editMode) {
+        $(".user-amount").val("");
+        $(".user-share").val("");
+        calculateCharges();
+      } else {
+          calculateChargesEditMode();
+      }
+      
     });
     
   });

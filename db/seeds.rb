@@ -77,7 +77,7 @@ expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
              :category => "Supplies", :details => "Amazon Ramen Subscription",
             #  :deadline => "August 21, 2016", :paid_by => yan},
              :deadline => "2016-08-23 21:58:00", :paid_by => gige},
-            {:name => "Paper Towels", :amount => "23.50", :date => "June 13, 2016",
+            {:name => "Paper Towels", :amount => "23.49", :date => "June 13, 2016",
              :category => "Supplies", :details => "Amazon Subscription",
             #  :deadline => "August 21, 2016", :paid_by => gige}]
              :deadline => "2016-08-23 21:59:00", :paid_by => gige}]
@@ -105,9 +105,9 @@ charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged
 
            {:completed => false, :amount => 10, :expense => toiletries, :charged_to => gige},
 
-           {:completed => true, :amount => 1100, :expense => amazon, :charged_to => val},
-           {:completed => true, :amount => 1100, :expense => amazon, :charged_to => anne},
-           {:completed => false, :amount => 1100, :expense => amazon, :charged_to => yan}]
+           {:completed => true, :amount => 7.83, :expense => amazon, :charged_to => val},
+           {:completed => true, :amount => 7.83, :expense => amazon, :charged_to => anne},
+           {:completed => false, :amount => 7.83, :expense => amazon, :charged_to => yan}]
 
 charge_instances = []
 charges.each do |charge|

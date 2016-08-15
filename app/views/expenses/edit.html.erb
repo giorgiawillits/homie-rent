@@ -1,29 +1,25 @@
 <!-- app/views/expenses/edit.html.erb -->
 
-<div class="ibox">
-  <div class="ibox-title">
-    <h4>Edit Expense</h4>
-  </div>
-  <div class="ibox-content">
-    <div class="row">
-      <%= form_tag expense_path(@expense), :method => "put", :id => "expense_form" do %>
-        <div class="col-md-4">
-          <%= render "expense_form" %>
-        </div>
-        <div class="col-md-8">
-          <%= render "edit_charge_form" %>
-        </div>
-        <div class="col-md-2 control-label">
-          <button class="btn btn-sm btn-white" type="submit">Save</button>
-        </div>
-      <% end %>
+<div class="row">
+  <%= form_tag expenses_path(@expense), :method => "put", :id => "expense_form", :class=>"form-horizontal" do %>
+  <div class="col-md-4 p-sm">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h4>Edit Expense</h4>
+      </div>
+      <div class="ibox-content-theme"> 
+        <%= render "expense_form" %>
+      </div>
     </div>
   </div>
+
+  <div class="col-md-8 p-sm">
+    <div class="ibox">
+      <%= render "charge_form_title" %>
+      <div class="ibox-content-theme"> 
+        <%= render "charge_form" %>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>
-
-
-
-
-
-
-
