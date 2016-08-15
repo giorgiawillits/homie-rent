@@ -55,8 +55,12 @@
 
     // Send reminders for all checked charges
     $(".send-reminder-button").click(function() {
-      expense_id = $(this).attr("id")
-      charges = $(".reminder-checkbox:checkbox:checked").attr("id")
+      var expense_id = $(this).attr("id");
+      var charges = []
+      $(".reminder-checkbox:checkbox:checked").each(function() {
+        charges.push($(this).attr("id"));
+      });
+
       $.ajax({
         type: "GET",
         url: '/twilio/send_reminders/' + expense_id,
