@@ -10,7 +10,7 @@
       </div>
       
       <div class="ibox-content-theme"> 
-        <%= render "show_expense_details" %>
+        <%= render "expense_details" %>
         
         <div class="ibox-content">
           <div class="table-responsive">
@@ -37,45 +37,7 @@
         <h4>Breakdown</h4>
       </div>
       <div class="ibox-content-theme"> 
-        
-        
-        
-        <table class="table table-responsive">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Completed</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @expense.charges.each do |charge| %>
-              <tr>
-                <td><%= charge.charged_to.full_name if charge.charged_to %></td>
-                <td>$<%= charge.amount %></td>
-                <td>
-                  <% if charge.completed %>
-                    <span class="glyphicon glyphicon-ok"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-remove"></span>
-                  <% end %>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-small pull-right ">
-                    <%= link_to 'Mark As Completed', mark_completed_path(charge.id) %>
-                  </button> 
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>  
-        
-        
-        
-        
-        
-        
+        <%= render "expense_breakdown" %>
       </div>
     </div>
   </div>

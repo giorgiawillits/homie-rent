@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  get '/mark_completed/:id' => 'charges#mark_completed', as: :mark_completed
+  get '/charges/update_status/:id' => 'charges#update_status', as: :update_charge_status
 
   # Example resource route with options:
   #   resources :products do

@@ -1,0 +1,41 @@
+<table class="table table-responsive">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Amount</th>
+      <th>Completed</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @expense.charges.each do |charge| %>
+      <tr>
+        <td><%= charge.charged_to.full_name if charge.charged_to %></td>
+        <td>$<%= charge.amount %></td>
+        <td>
+          <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>  
+
+<script>
+  $(document).ready(function() {
+    // Update charge status when completed box is clicked
+    $(".charge-status").click(function() {
+      var mark_completed = $(this).hasClass("glyphicon-remove");
+      $.ajax({
+        type: "GET",
+        url: '/charges/update_status/' + $(this).attr("id"),
+        data: {completed: mark_completed},
+        context: $(this),
+        success: function(result) {
+          $(this).toggleClass("glyphicon-ok glyphicon-remove");
+        }
+      });
+    });
+  })
+</script>

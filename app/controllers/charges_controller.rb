@@ -32,13 +32,12 @@ class ChargesController < ApplicationController
   def update
   end
   
-  def mark_completed
+  def update_status
     charge = Charge.find_by_id(params[:id])
-    charge.completed = true
-    charge.save!
-    redirect_to expense_path(charge.expense)
+    charge.update_attributes(:completed => params[:completed])
+    render json: {}
   end
-
+  
   # DELETE /charges/1
   # DELETE /charges/1.json
   def destroy
