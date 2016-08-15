@@ -5,12 +5,11 @@ class TwilioController < ApplicationController
   def reply
     message_body = params[:Body]
     from_number = params[:From].gsub(/^\+\d/, '')
-    if message_body =~ /completed ([0-9]*)/i
+    if message_body =~ /^completed ([0-9]*)/i
       request_completed_confirmation $1, from_number
-    elsif message_body =~ /confirm completed ([0-9]*)/i
+    elsif message_body =~ /^confirm completed ([0-9]*)/i
       confirm_completed_charge $1, from_number
     end
-
     render xml: {}
   end
 
@@ -27,7 +26,7 @@ class TwilioController < ApplicationController
       send_message send_to_number, message
   end
 
-  def comfirm_completed_charge charge_id, from_number
+  def confirm_completed_charge charge_id, from_number
     # make sure from_number is the user who created this charge
     paid_by = User.find_by_phone_number(from_number)
     charge = Charge.find_by_id(charge_id)
