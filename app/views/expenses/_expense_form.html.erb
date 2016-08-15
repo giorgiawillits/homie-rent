@@ -4,7 +4,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="name" value="<%= @expense.name if @expense %>" type="text" name="expense[name]" style="max-width:350px;" class="form-control"/>
+      <input id="name" type="text" 
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.name if @expense %>" 
+             name="expense[name]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
@@ -15,7 +19,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="amount" value="<%= @expense.amount if @expense %>" type="text" name="expense[amount]" style="max-width:350px;" class="form-control"/>
+      <input id="amount" type="text"
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.amount if @expense %>"
+             name="expense[amount]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
@@ -26,7 +34,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group date">
-      <input id="date" value="<%= @expense.date if @expense %>" type="text" name="expense[date]" style="max-width:350px;" class="form-control"/>
+      <input id="date" type="text" 
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.date if @expense %>" 
+             name="expense[date]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
@@ -37,7 +49,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="category" value="<%= @expense.category if @expense %>" type="text" name="expense[category]" style="max-width:350px;" class="form-control"/>
+      <input id="category" type="text" 
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.category if @expense %>" 
+             name="expense[category]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
@@ -48,7 +64,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="details" value="<%= @expense.details if @expense %>" type="text" name="expense[details]" style="max-width:350px;" class="form-control"/>
+      <input id="details" type="text" 
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.details if @expense %>" 
+             name="expense[details]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
@@ -59,7 +79,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="deadline" value="<%= @expense.deadline if @expense %>" type="text" name="expense[deadline]" style="max-width:350px;" class="form-control"/>
+      <input id="deadline" type="text" 
+             <%= 'readonly' if @show %> 
+             value="<%= @expense.deadline if @expense %>" 
+             name="expense[deadline]" 
+             style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>

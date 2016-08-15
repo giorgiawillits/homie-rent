@@ -20,9 +20,8 @@
             </div>
             
             <div class="input-group hidden">
-              <span class="input-group-addon">$</span>
-              <input class="form-control user-original-amount" type="text" 
-                value="<%= @charges and @charges[user] ? @charges[user].amount : 0 %>">
+              <input class="user-original-amount" type="text" 
+                value="<%= (@charges and @charges[user]) ? @charges[user].amount : 0 %>">
             </div>
             
           </td>
@@ -169,7 +168,7 @@
         $(".user-share").val("");
         calculateCharges();
       } else {
-          calculateChargesEditMode();
+        calculateChargesEditMode();
       }
       
     });
