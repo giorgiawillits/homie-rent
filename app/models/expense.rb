@@ -51,6 +51,7 @@ class Expense < ActiveRecord::Base
   def reminder
     send_reminders self.charges.where(:completed => false)
   end
+  # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
   handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
   
   def send_reminders charges
