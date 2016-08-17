@@ -14,8 +14,12 @@ class Charge < ActiveRecord::Base
   end
 
   def amount_formatted
-    "$%.2f" % self.amount
-    # "$%.2f".format(self.amount)
+    if self.amount % 1 == 0
+      "$%.0f" % self.amount
+    else
+      "$%.2f" % self.amount
+      # "$%.2f".format(self.amount)
+    end
   end
 
 end

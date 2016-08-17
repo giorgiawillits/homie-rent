@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814013956) do
+ActiveRecord::Schema.define(version: 20160816071901) do
 
   create_table "charges", force: :cascade do |t|
     t.boolean  "completed"
@@ -37,8 +37,11 @@ ActiveRecord::Schema.define(version: 20160814013956) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "owner_type"
+    t.integer  "owner_id"
   end
 
+  add_index "delayed_jobs", ["owner_type", "owner_id"], name: "index_delayed_jobs_on_owner_type_and_owner_id"
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "expenses", force: :cascade do |t|

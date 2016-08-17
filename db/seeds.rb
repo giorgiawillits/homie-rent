@@ -68,7 +68,7 @@ yan = User.find_by_first_name("Yannie")
 expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
              :category => "Rent", :details => "June Rent",
             #  :deadline => "June 1, 2016", :paid_by => gige},
-             :deadline => "2016-08-13 14:37:00", :paid_by => gige},
+             :deadline => "2016-08-16 23:41:00", :paid_by => gige},
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016",
              :category => "Supplies", :details => "Toilet Paper and Such",
             #  :deadline => "July 31, 2016", :paid_by => paul},

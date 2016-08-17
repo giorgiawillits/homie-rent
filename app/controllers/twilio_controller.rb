@@ -26,7 +26,7 @@ class TwilioController < ApplicationController
       paid_by = charge.paid_by
       # user_charged = User.find_by_phone_number(from_number) -> check if this matches??
       user_charged = charge.charged_to
-      amount = charge.amount
+      amount = charge.amount_formatted
 
       send_to_number = paid_by.phone_number
       message = "#{user_charged.first_name} completed your charge of $#{amount} for #{expense_name}. To confirm, reply CONFIRM COMPLETED #{charge_id}"
@@ -42,7 +42,7 @@ class TwilioController < ApplicationController
       charge.update_attributes(:completed => true)
 
       # send notification of completed charge to paid_by and charged_to users
-      charged_to, amount, expense_name = charge.charged_to, charge.amount, charge.expense.name
+      charged_to, amount, expense_name = charge.charged_to, charge.amount_formatted, charge.expense.name
 
       message = "Your charge to #{charged_to.first_name} of #{amount} for #{expense_name} has been marked as completed."
       send_message paid_by.phone_number, message
