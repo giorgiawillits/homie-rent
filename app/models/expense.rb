@@ -80,8 +80,8 @@ class Expense < ActiveRecord::Base
 
   def update_reminders
     if self.jobs.first.run_at != self.when_to_run
-      self.jobs.destroy_all
-      reminder
+      self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
+      # reminder
     end
   end
 
