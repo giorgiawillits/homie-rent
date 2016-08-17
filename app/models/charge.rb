@@ -18,7 +18,6 @@ class Charge < ActiveRecord::Base
       "$%.0f" % self.amount
     else
       "$%.2f" % self.amount
-      # "$%.2f".format(self.amount)
     end
   end
 

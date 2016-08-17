@@ -21,7 +21,11 @@ class Expense < ActiveRecord::Base
   end
 
   def amount_formatted
-    "$%.2f" % self.amount
+    if self.amount % 1 == 0
+      "$%.0f" % self.amount
+    else
+      "$%.2f" % self.amount
+    end
   end
 
   def completed?
