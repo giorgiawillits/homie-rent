@@ -3,6 +3,7 @@
 class Expense < ActiveRecord::Base
   belongs_to :paid_by, :class_name => "User"
   has_many :charges
+  has_many :jobs, :class_name => "::Delayed::Job", :as => :owner
 
   after_create :reminder
 
@@ -52,7 +53,7 @@ class Expense < ActiveRecord::Base
     send_reminders self.charges.where(:completed => false)
   end
   # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
-  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
+  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
   
   def send_reminders charges
     @twilio_number = ENV['TWILIO_NUMBER']
