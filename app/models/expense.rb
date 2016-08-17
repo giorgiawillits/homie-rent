@@ -56,7 +56,7 @@ class Expense < ActiveRecord::Base
   end
   # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
   handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
-  
+
   def send_reminders charges
     @twilio_number = ENV['TWILIO_NUMBER']
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
@@ -67,9 +67,9 @@ class Expense < ActiveRecord::Base
 
     charges.each do |charge|
       name = charge.charged_to.first_name.capitalize
-      amount = charge.amount
+      amount = charge.amount_formatted
       phone_number = charge.charged_to.phone_number
-      reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
+      reminder = "Hi #{name}. Please pay #{paid_by_name} #{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
 
       message = @client.account.messages.create(
         :from => @twilio_number,
@@ -84,7 +84,7 @@ class Expense < ActiveRecord::Base
       reminder
     end
   end
-  
+
   def delete_reminders
     self.jobs.destroy_all
   end
