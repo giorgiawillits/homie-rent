@@ -29,7 +29,7 @@ class TwilioController < ApplicationController
       amount = charge.amount_formatted
 
       send_to_number = paid_by.phone_number
-      message = "#{user_charged.first_name} completed your charge of $#{amount} for #{expense_name}. To confirm, reply CONFIRM COMPLETED #{charge_id}"
+      message = "#{user_charged.first_name} completed your charge of #{amount} for #{expense_name}. To confirm, reply CONFIRM COMPLETED #{charge_id}"
       send_message send_to_number, message
   end
 
