@@ -68,7 +68,7 @@ yan = User.find_by_first_name("Yannie")
 expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
              :category => "Rent", :details => "June Rent",
             #  :deadline => "June 1, 2016", :paid_by => gige},
-             :deadline => "2016-08-16 23:41:00", :paid_by => gige},
+             :deadline => "2016-08-17 00:42:00", :paid_by => gige},
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016",
              :category => "Supplies", :details => "Toilet Paper and Such",
             #  :deadline => "July 31, 2016", :paid_by => paul},
@@ -92,7 +92,7 @@ toiletries = Expense.find_by_details("Toilet Paper and Such")
 ramen = Expense.find_by_details("Amazon Ramen Subscription")
 
 ## CHARGES ##
-charges = [{:completed => false, :amount => 650, :expense => june_rent, :charged_to => anne},
+charges = [{:completed => false, :amount => 1650.34, :expense => june_rent, :charged_to => anne},
            {:completed => true, :amount => 650, :expense => june_rent, :charged_to => paul},
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => gige},
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => val},

@@ -21,7 +21,11 @@ class Expense < ActiveRecord::Base
   end
 
   def amount_formatted
-    "$%.2f" % self.amount
+    if self.amount % 1 == 0
+      "$%.0f" % self.amount
+    else
+      "$%.2f" % self.amount
+    end
   end
 
   def completed?
@@ -80,8 +84,8 @@ class Expense < ActiveRecord::Base
 
   def update_reminders
     if self.jobs.first.run_at != self.when_to_run
-      self.jobs.destroy_all
-      reminder
+      self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
+      # reminder
     end
   end
 
