@@ -15,9 +15,9 @@ class Charge < ActiveRecord::Base
 
   def amount_formatted
     if self.amount % 1 == 0
-      "$%.0f" % self.amount
+      "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
     else
-      "$%.2f" % self.amount
+      "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
     end
   end
 

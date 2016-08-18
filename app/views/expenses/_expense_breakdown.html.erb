@@ -13,7 +13,7 @@
     <% @expense.charges.each do |charge| %>
       <tr>
         <td><%= charge.charged_to.full_name if charge.charged_to %></td>
-        <td>$<%= charge.amount %></td>
+        <td><%= charge.amount_formatted %></td>
         <td>
           <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
         </td>
