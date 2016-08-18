@@ -1,4 +1,5 @@
 # app/models/expense.rb
+include ActionView::Helpers::NumberHelper
 
 class Expense < ActiveRecord::Base
   belongs_to :paid_by, :class_name => "User"
@@ -22,9 +23,12 @@ class Expense < ActiveRecord::Base
 
   def amount_formatted
     if self.amount % 1 == 0
-      "$%.0f" % self.amount
+      number_with_delimiter(self.amount, :delimiter => ',')
+      # number_with_precision(self.amount, :precision => 0, :delimiter => ',')
+      # "$%.0f" % self.amount
     else
-      "$%.2f" % self.amount
+      number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+      # "$%.2f" % self.amount
     end
   end
 
