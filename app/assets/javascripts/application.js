@@ -20,3 +20,5 @@
 //= require bs-file-input.js
 //= require_tree .
 //= require underscore
+//= require bootstrap-datepicker
+//= require moment

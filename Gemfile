@@ -3,9 +3,14 @@ source 'https://rubygems.org'
 gem 'underscore-rails'
 
 gem 'bootstrap-sass', '~> 3.3.6'
+
 gem 'font-awesome-rails', '4.3.0.0'
 # For client validation
 gem 'parsley-rails'
+
+# For front-end dates
+gem 'bootstrap-datepicker-rails'
+gem 'momentjs-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

@@ -11,6 +11,10 @@ module Formattable
     end
   end
 
+  def format_amount_with_decimal_plain amount
+    number_with_precision(amount, :precision => 2, :delimiter => ',')
+  end
+
   def format_amount_with_decimal amount
     "$" + number_with_precision(amount, :precision => 2, :delimiter => ',')
   end

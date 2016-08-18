@@ -5,10 +5,10 @@
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
       <input id="name" type="text"
-             <%= 'readonly' if @show %>
              value="<%= @expense.name if @expense %>"
              name="expense[name]"
-             style="max-width:350px;" class="form-control"/>
+             class="form-control"
+             <%= 'readonly' if @show %>  />
     </div>
   </div>
 </div>
@@ -19,11 +19,11 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="amount" type="text"
-             <%= 'readonly' if @show %>
-             value="<%= @expense.amount_formatted if @expense %>"
+      <span class="input-group-addon">$</span>
+      <input id="amount" type="text" class="form-control"
+             value="<%= @expense.amount_formatted_plain if @expense %>"
              name="expense[amount]"
-             style="max-width:350px;" class="form-control"/>
+             <%= 'readonly' if @show %>/>
     </div>
   </div>
 </div>
@@ -34,11 +34,13 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group date">
-      <input id="date" type="text"
-             <%= 'readonly' if @show %>
+
+      <input type="text" class='datepicker form-control'
+             data-date="<%= @expense.date if @expense %>"
              value="<%= @expense.date_formatted if @expense %>"
              name="expense[date]"
-             style="max-width:350px;" class="form-control"/>
+             style="max-width:350px;"
+             <%= 'readonly' if @show %>  />
     </div>
   </div>
 </div>
@@ -50,10 +52,10 @@
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
       <input id="category" type="text"
-             <%= 'readonly' if @show %>
              value="<%= @expense.category if @expense %>"
              name="expense[category]"
-             style="max-width:350px;" class="form-control"/>
+             class="form-control"
+             <%= 'readonly' if @show %> />
     </div>
   </div>
 </div>
@@ -65,10 +67,10 @@
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
       <input id="details" type="text"
-             <%= 'readonly' if @show %>
              value="<%= @expense.details if @expense %>"
              name="expense[details]"
-             style="max-width:350px;" class="form-control"/>
+             class="form-control"/>
+             <%= 'readonly' if @show %>
     </div>
   </div>
 </div>
@@ -79,11 +81,36 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="deadline" type="text"
-             <%= 'readonly' if @show %>
+      <input class="datepicker form-control" id="deadline" type="text"
+             data-date="<%= @expense.date if @expense %>"
              value="<%= @expense.deadline_formatted if @expense %>"
              name="expense[deadline]"
-             style="max-width:350px;" class="form-control"/>
+             <%= 'readonly' if @show %> />
     </div>
   </div>
 </div>
+<script>
+  $( document ).ready(function() {
+    $('#amount').maskMoney();
+    $(".datepicker").datepicker({
+      orientation: "bottom auto",
+      format: {
+          /*
+           * Say our UI should display a week ahead,
+           * but textbox should store the actual date.
+           * This is useful if we need UI to select local dates,
+           * but store in UTC
+           */
+          toDisplay: function (date, format, language) {
+              var m = moment(new Date(date)).add(1, 'days');
+              return m.format('ddd, MMM Do');
+          },
+          toValue: function (date, format, language) {
+          		var m = moment(new Date(date));
+              return m.toISOString();
+          }
+      },
+      todayHighlight: true
+    });
+  });
+</script>
