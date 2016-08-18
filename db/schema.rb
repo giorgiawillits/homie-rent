@@ -17,13 +17,13 @@ ActiveRecord::Schema.define(version: 20160816071901) do
     t.boolean  "completed"
     t.float    "amount"
     t.integer  "expense_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "charged_to_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
-  add_index "charges", ["charged_to_id"], name: "index_charges_on_charged_to_id"
   add_index "charges", ["expense_id"], name: "index_charges_on_expense_id"
+  add_index "charges", ["user_id"], name: "index_charges_on_user_id"
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -52,11 +52,11 @@ ActiveRecord::Schema.define(version: 20160816071901) do
     t.string   "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "paid_by_id"
+    t.integer  "user_id"
     t.datetime "deadline"
   end
 
-  add_index "expenses", ["paid_by_id"], name: "index_expenses_on_paid_by_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "houses", force: :cascade do |t|
     t.string   "name"

@@ -2,7 +2,7 @@
 include ActionView::Helpers::NumberHelper
 
 class Expense < ActiveRecord::Base
-  belongs_to :paid_by, :class_name => "User"
+  belongs_to :paid_by, :class_name => "User", :foreign_key => 'user_id'
   has_many :charges
   has_many :jobs, :class_name => "::Delayed::Job", :as => :owner
 

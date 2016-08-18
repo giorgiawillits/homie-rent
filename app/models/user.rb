@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   
   belongs_to :house
-  has_many :expenses, :foreign_key => "paid_by_id"
-  has_many :charges, :through => :expenses, :foreign_key => "charged_to_id"
+  has_many :expenses
+  has_many :charges
   
   def all_activities
     activities = []
