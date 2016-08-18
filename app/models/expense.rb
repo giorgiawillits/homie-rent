@@ -22,11 +22,23 @@ class Expense < ActiveRecord::Base
   end
 
   def amount_formatted
+    amount_formatted_with_decimal
+  end
+
+  def amount_formatted_slim
     if self.amount % 1 == 0
-      "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
+      amount_formatted_without_decimal
     else
-      "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+      amount_formatted_with_decimal
     end
+  end
+  
+  def amount_formatted_with_decimal
+    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+  end
+
+  def amount_formatted_without_decimal
+    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
   end
 
   def completed?
@@ -72,7 +84,7 @@ class Expense < ActiveRecord::Base
 
     charges.each do |charge|
       name = charge.charged_to.first_name.capitalize
-      amount = charge.amount_formatted
+      amount = charge.amount_formatted_slim
       phone_number = charge.charged_to.phone_number
       reminder = "Hi #{name}. Please pay #{paid_by_name} #{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
 

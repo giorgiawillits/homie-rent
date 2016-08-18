@@ -14,11 +14,23 @@ class Charge < ActiveRecord::Base
   end
 
   def amount_formatted
-    if self.amount % 1 == 0
-      "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
-    else
-      "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
-    end
+    amount_formatted_with_decimal
   end
 
+  def amount_formatted_slim
+    if self.amount % 1 == 0
+      amount_formatted_without_decimal
+    else
+      amount_formatted_with_decimal
+    end
+  end
+  
+  def amount_formatted_with_decimal
+    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+  end
+
+  def amount_formatted_without_decimal
+    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
+  end
+  
 end
