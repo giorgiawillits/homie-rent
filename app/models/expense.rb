@@ -52,7 +52,7 @@ class Expense < ActiveRecord::Base
     send_reminders self.charges.where(:completed => false)
   end
   handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
-  
+
   def send_reminders charges
     @twilio_number = ENV['TWILIO_NUMBER']
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
