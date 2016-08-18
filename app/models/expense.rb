@@ -1,7 +1,9 @@
 # app/models/expense.rb
 include ActionView::Helpers::NumberHelper
+require 'utils'
 
 class Expense < ActiveRecord::Base
+  include Formattable
   belongs_to :paid_by, :class_name => "User", :foreign_key => 'user_id'
   has_many :charges
   has_many :jobs, :class_name => "::Delayed::Job", :as => :owner
@@ -14,31 +16,19 @@ class Expense < ActiveRecord::Base
   @@REMINDER_TIME = 1.minute # days before deadline
 
   def date_formatted
-    self.date.strftime("%a, %b #{self.date.day.ordinalize}")
+    format_date self.date
   end
 
   def deadline_formatted
-    self.deadline.strftime("%a, %b #{self.deadline.day.ordinalize}")
+    format_date self.deadline
   end
 
   def amount_formatted
-    amount_formatted_with_decimal
+    format_amount_with_decimal self.amount
   end
 
   def amount_formatted_slim
-    if self.amount % 1 == 0
-      amount_formatted_without_decimal
-    else
-      amount_formatted_with_decimal
-    end
-  end
-
-  def amount_formatted_with_decimal
-    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
-  end
-
-  def amount_formatted_without_decimal
-    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
+    format_amount_slim self.amount
   end
 
   def completed?

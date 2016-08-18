@@ -1,6 +1,8 @@
 # app/models/charge.rb
+require 'utils'
 
 class Charge < ActiveRecord::Base
+  include Formattable
   belongs_to :charged_to, :class_name => "User", :foreign_key => "user_id"
   belongs_to :expense
   has_one :paid_by, :through => :expense
@@ -10,27 +12,15 @@ class Charge < ActiveRecord::Base
   end
 
   def date_formatted
-    self.created_at.strftime("%a, %b #{self.created_at.day.ordinalize}")
+    format_date self.created_at
   end
 
   def amount_formatted
-    amount_formatted_with_decimal
+    format_amount_with_decimal self.amount
   end
 
   def amount_formatted_slim
-    if self.amount % 1 == 0
-      amount_formatted_without_decimal
-    else
-      amount_formatted_with_decimal
-    end
-  end
-  
-  def amount_formatted_with_decimal
-    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+    format_amount_slim self.amount
   end
 
-  def amount_formatted_without_decimal
-    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
-  end
-  
 end
