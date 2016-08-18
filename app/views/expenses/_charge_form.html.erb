@@ -16,12 +16,12 @@
             <div class="input-group">
               <span class="input-group-addon">$</span>
               <input class="form-control user-amount" type="text" name="charges[users][<%= user.id %>]"
-                value="<%= (@charges[user] ? @charges[user].amount : 0) if @charges %>">
+                value="<%= (@charges[user] ? @charges[user].amount_formatted : 0) if @charges %>">
             </div>
             
             <div class="input-group hidden">
               <input class="user-original-amount" type="text" 
-                value="<%= (@charges and @charges[user]) ? @charges[user].amount : 0 %>">
+                value="<%= (@charges and @charges[user]) ? @charges[user].amount_formatted : 0 %>">
             </div>
             
           </td>

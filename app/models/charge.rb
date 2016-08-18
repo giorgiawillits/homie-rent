@@ -1,9 +1,9 @@
 # app/models/charge.rb
 
 class Charge < ActiveRecord::Base
-  belongs_to :charged_to, :class_name => "User"
-  has_one :paid_by, :through => :expense
+  belongs_to :charged_to, :class_name => "User", :foreign_key => "user_id"
   belongs_to :expense
+  has_one :paid_by, :through => :expense
 
   def charge_to user
     curr = current_user
@@ -14,8 +14,23 @@ class Charge < ActiveRecord::Base
   end
 
   def amount_formatted
-    "$%.2f" % self.amount
-    # "$%.2f".format(self.amount)
+    amount_formatted_with_decimal
   end
 
+  def amount_formatted_slim
+    if self.amount % 1 == 0
+      amount_formatted_without_decimal
+    else
+      amount_formatted_with_decimal
+    end
+  end
+  
+  def amount_formatted_with_decimal
+    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+  end
+
+  def amount_formatted_without_decimal
+    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
+  end
+  
 end

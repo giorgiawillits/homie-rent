@@ -4,15 +4,15 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="name" type="text" 
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.name if @expense %>" 
-             name="expense[name]" 
+      <input id="name" type="text"
+             <%= 'readonly' if @show %>
+             value="<%= @expense.name if @expense %>"
+             name="expense[name]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>
 </div>
-      
+
 <div class="form-group m-b-xxs">
   <div class="col-md-3 control-label">
     <label for="amount">Amount</label>
@@ -20,9 +20,9 @@
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
       <input id="amount" type="text"
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.amount if @expense %>"
-             name="expense[amount]" 
+             <%= 'readonly' if @show %>
+             value="<%= @expense.amount_formatted if @expense %>"
+             name="expense[amount]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>
@@ -34,10 +34,10 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group date">
-      <input id="date" type="text" 
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.date if @expense %>" 
-             name="expense[date]" 
+      <input id="date" type="text"
+             <%= 'readonly' if @show %>
+             value="<%= @expense.date_formatted if @expense %>"
+             name="expense[date]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>
@@ -49,10 +49,10 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="category" type="text" 
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.category if @expense %>" 
-             name="expense[category]" 
+      <input id="category" type="text"
+             <%= 'readonly' if @show %>
+             value="<%= @expense.category if @expense %>"
+             name="expense[category]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>
@@ -64,10 +64,10 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="details" type="text" 
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.details if @expense %>" 
-             name="expense[details]" 
+      <input id="details" type="text"
+             <%= 'readonly' if @show %>
+             value="<%= @expense.details if @expense %>"
+             name="expense[details]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>
@@ -79,10 +79,10 @@
   </div>
   <div class="col-md-9" style='margin-bottom:25px;'>
     <div class="input-group">
-      <input id="deadline" type="text" 
-             <%= 'readonly' if @show %> 
-             value="<%= @expense.deadline if @expense %>" 
-             name="expense[deadline]" 
+      <input id="deadline" type="text"
+             <%= 'readonly' if @show %>
+             value="<%= @expense.deadline_formatted if @expense %>"
+             name="expense[deadline]"
              style="max-width:350px;" class="form-control"/>
     </div>
   </div>

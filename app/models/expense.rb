@@ -1,10 +1,14 @@
 # app/models/expense.rb
+include ActionView::Helpers::NumberHelper
 
 class Expense < ActiveRecord::Base
-  belongs_to :paid_by, :class_name => "User"
+  belongs_to :paid_by, :class_name => "User", :foreign_key => 'user_id'
   has_many :charges
+  has_many :jobs, :class_name => "::Delayed::Job", :as => :owner
 
   after_create :reminder
+  after_save :update_reminders
+  after_destroy :delete_reminders
 
   # @@REMINDER_TIME = 1.day # days before deadline
   @@REMINDER_TIME = 1.minute # days before deadline
@@ -18,7 +22,23 @@ class Expense < ActiveRecord::Base
   end
 
   def amount_formatted
-    "$%.2f" % self.amount
+    amount_formatted_with_decimal
+  end
+
+  def amount_formatted_slim
+    if self.amount % 1 == 0
+      amount_formatted_without_decimal
+    else
+      amount_formatted_with_decimal
+    end
+  end
+
+  def amount_formatted_with_decimal
+    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+  end
+
+  def amount_formatted_without_decimal
+    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
   end
 
   def completed?
@@ -51,7 +71,9 @@ class Expense < ActiveRecord::Base
   def reminder
     send_reminders self.charges.where(:completed => false)
   end
-  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }
+
+  # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
+  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
 
   def send_reminders charges
     @twilio_number = ENV['TWILIO_NUMBER']
@@ -63,15 +85,26 @@ class Expense < ActiveRecord::Base
 
     charges.each do |charge|
       name = charge.charged_to.first_name.capitalize
-      amount = charge.amount
+      amount = charge.amount_formatted_slim
       phone_number = charge.charged_to.phone_number
-      reminder = "Hi #{name}. Please pay #{paid_by_name} $#{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
+      reminder = "Hi #{name}. Please pay #{paid_by_name} #{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
 
       message = @client.account.messages.create(
         :from => @twilio_number,
         :to => phone_number,
         :body => reminder)
     end
+  end
+
+  def update_reminders
+    if self.jobs.first.run_at != self.when_to_run
+      self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
+      # reminder
+    end
+  end
+
+  def delete_reminders
+    self.jobs.destroy_all
   end
 
 end

@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160814013956) do
+ActiveRecord::Schema.define(version: 20160816071901) do
 
   create_table "charges", force: :cascade do |t|
     t.boolean  "completed"
     t.float    "amount"
     t.integer  "expense_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "charged_to_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
-  add_index "charges", ["charged_to_id"], name: "index_charges_on_charged_to_id"
   add_index "charges", ["expense_id"], name: "index_charges_on_expense_id"
+  add_index "charges", ["user_id"], name: "index_charges_on_user_id"
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -37,8 +37,11 @@ ActiveRecord::Schema.define(version: 20160814013956) do
     t.string   "queue"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "owner_type"
+    t.integer  "owner_id"
   end
 
+  add_index "delayed_jobs", ["owner_type", "owner_id"], name: "index_delayed_jobs_on_owner_type_and_owner_id"
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
 
   create_table "expenses", force: :cascade do |t|
@@ -49,11 +52,11 @@ ActiveRecord::Schema.define(version: 20160814013956) do
     t.string   "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "paid_by_id"
+    t.integer  "user_id"
     t.datetime "deadline"
   end
 
-  add_index "expenses", ["paid_by_id"], name: "index_expenses_on_paid_by_id"
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
 
   create_table "houses", force: :cascade do |t|
     t.string   "name"
