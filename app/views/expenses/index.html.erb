@@ -33,10 +33,10 @@
               <% Expense.all.each do |expense| %>
               <tr>
                 <td class="project-status">
-                  <% if expense.overdue? %>
+                  <% if expense.completed? %>
+                  <span class="label label-primary">Completed</span>
+                  <% elsif expense.overdue? %>
                     <span class="label label-warning">Overdue</span>
-                  <% elsif expense.completed? %>
-                    <span class="label label-primary">Completed</span>
                   <% else %>
                     <span class="label label-info">Pending</span>
                   <% end %>
