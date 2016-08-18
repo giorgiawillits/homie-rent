@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
   
   def charged_against
-    Charge.where(:charged_to_id=>self.id).to_a
+    Charge.where(:charged_to => self).to_a
   end
   
   def full_name
