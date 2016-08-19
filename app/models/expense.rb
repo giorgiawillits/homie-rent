@@ -81,7 +81,7 @@ class Expense < ActiveRecord::Base
     expense_name = self.name
 
     charges.each do |charge|
-      logger.info "charge: #{charge.user.first_name}"
+      logger.info "charge: #{charge.charged_to.first_name}"
       name = charge.charged_to.first_name.capitalize
       amount = charge.amount_formatted_slim
       phone_number = charge.charged_to.phone_number
