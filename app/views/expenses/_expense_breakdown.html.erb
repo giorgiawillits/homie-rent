@@ -10,21 +10,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @expense.charges.each do |charge| %>
-      <tr>
-        <td><%= charge.charged_to.full_name if charge.charged_to %></td>
-        <td><%= charge.amount_formatted %></td>
-        <td>
-          <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
-        </td>
-        <td>
-          <input type="checkbox"
-                 class="reminder-checkbox"
-                 id="<%= charge.id %>"
-                 <%= 'checked' if !charge.completed %>
-                 <%= 'disabled' if charge.completed %>/>
-        </td>
-      </tr>
+    <% current_house_members.each do |user| %> 
+      <% charge = @expense.charges.find_by_user_id(user.id) %>
+      <% if  charge %>
+        <tr>
+          <td><%= charge.charged_to.full_name if charge.charged_to %></td>
+          <td><%= charge.amount_formatted %></td>
+          <td>
+            <span class="charge-status glyphicon glyphicon-<%= charge.completed ? 'ok' : 'remove' %>" id='<%= charge.id %>'></span>
+          </td>
+          <td>
+            <input type="checkbox"
+                   class="reminder-checkbox"
+                   id="<%= charge.id %>"
+                   <%= 'checked' if !charge.completed %>
+                   <%= 'disabled' if charge.completed %>/>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
