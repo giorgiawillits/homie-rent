@@ -69,7 +69,7 @@ class Expense < ActiveRecord::Base
   end
 
   # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
-  # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
+  handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
 
   def send_reminders charges
     logger.info "called send_reminders"
