@@ -11,21 +11,22 @@
       
       <div class="ibox-content-theme"> 
         <%= render "expense_details" %>
-        
-        <div class="ibox-content">
-          <div class="table-responsive">
-            <table class="table shoping-cart-table">
-              <tbody><tr>
-                <td class="col-md-6">
-                  <%= link_to 'Edit', edit_expense_path(@expense), :class => "pull-right btn btn-sm btn-warning btn-block", :type => "button" %> 
-                </td>
-                <td class="col-md-6">
-                  <%= link_to 'Delete', expense_path(@expense), :method => "delete", :class => "pull-right btn btn-sm btn-danger btn-block", :type => "button" %>
-                </td>
-              </tr></tbody>
-            </table>
+        <% if current_user == @expense.paid_by %>
+          <div class="ibox-content">
+            <div class="table-responsive">
+              <table class="table shoping-cart-table">
+                <tbody><tr>
+                  <td class="col-md-6">
+                    <%= link_to 'Edit', edit_expense_path(@expense), :class => "pull-right btn btn-sm btn-warning btn-block", :type => "button" %> 
+                  </td>
+                  <td class="col-md-6">
+                    <%= link_to 'Delete', expense_path(@expense), :method => "delete", :class => "pull-right btn btn-sm btn-danger btn-block", :type => "button" %>
+                  </td>
+                </tr></tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
       
     </div>
