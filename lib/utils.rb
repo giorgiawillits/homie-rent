@@ -3,23 +3,34 @@ module Formattable
     date.strftime("%a, %b #{date.day.ordinalize}")
   end
 
-  def format_amount_slim amount
-    if amount % 1 == 0
-      format_amount_without_decimal amount
+
+  ### DOLLAR AMOUNTS ###
+  # default formatting: $1,000.00
+  def amount_formatted
+    amount_formatted_with_decimal
+  end
+  
+  # default formatting without dollar sign: 1,000.00
+  def amount_formatted_plain
+    number_with_precision(self.amount, :precision => 2, :delimiter => ',')
+  end
+  
+  # $1,000 if round dollar amount, else $1,000.30
+  def amount_formatted_slim
+    if self.amount % 1 == 0
+      amount_formatted_without_decimal
     else
-      format_amount_with_decimal amount
+      amount_formatted_with_decimal
     end
   end
-
-  def format_amount_with_decimal_plain amount
-    number_with_precision(amount, :precision => 2, :delimiter => ',')
+  
+  # $1,000.00
+  def amount_formatted_with_decimal
+    "$" + number_with_precision(self.amount, :precision => 2, :delimiter => ',')
   end
-
-  def format_amount_with_decimal amount
-    "$" + number_with_precision(amount, :precision => 2, :delimiter => ',')
-  end
-
-  def format_amount_without_decimal amount
-    "$" + number_with_precision(amount, :precision => 0, :delimiter => ',')
+  
+  # $1,000
+  def amount_formatted_without_decimal
+    "$" + number_with_precision(self.amount, :precision => 0, :delimiter => ',')
   end
 end
