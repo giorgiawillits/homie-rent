@@ -83,11 +83,14 @@ class Expense < ActiveRecord::Base
     charges.each do |charge|
       logger.info "charge: #{charge.charged_to.first_name}"
       name = charge.charged_to.first_name.capitalize
+      logger.info "name: #{name}"
       amount = charge.amount_formatted_slim
+      logger.info "amount: #{amount}"
       phone_number = charge.charged_to.phone_number
-      reminder = "Hi #{name}. Please pay #{paid_by_name} #{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
-
       logger.info "phone_number: #{phone_number}"
+      reminder = "Hi #{name}. Please pay #{paid_by_name} #{amount} for #{expense_name} by #{deadline_str} in order to avoid a late fee of $#{late_fee}. If you have already completed this charge, reply COMPLETED #{charge.id}."
+      logger.info "reminder: #{reminder}"
+
       message = @client.account.messages.create(
         :from => @twilio_number,
         :to => phone_number,
