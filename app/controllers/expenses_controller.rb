@@ -35,9 +35,14 @@ class ExpensesController < ApplicationController
 
   def edit
     @expense = Expense.find_by_id(params[:id])
-    @charges = {}
-    @expense.charges.each do |charge|
-      @charges[charge.charged_to] = charge
+    if current_user != @expense.paid_by
+      redirect_to expenses_path
+      flash[:warning] = "You can not edit this expense."
+    else 
+      @charges = {}
+      @expense.charges.each do |charge|
+        @charges[charge.charged_to] = charge
+      end
     end
   end
 
@@ -50,8 +55,13 @@ class ExpensesController < ApplicationController
 
   def destroy
     @expense = Expense.find_by_id(params[:id])
-    @expense.destroy!
-    redirect_to expenses_path
+    if current_user != @expense.paid_by
+      redirect_to expenses_path
+      flash[:warning] = "You can not delete this expense."
+    else 
+      @expense.destroy!
+      redirect_to expenses_path
+    end
   end
 
   private

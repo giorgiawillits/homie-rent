@@ -72,7 +72,7 @@ expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016",
              :category => "Supplies", :details => "Toilet Paper and Such",
             #  :deadline => "July 31, 2016", :paid_by => paul},
-             :deadline => "2016-08-23 21:57:00", :paid_by => gige},
+             :deadline => "2016-08-23 21:57:00", :paid_by => anne},
             {:name => "Ramen", :amount => "24", :date => "July 11, 2016",
              :category => "Supplies", :details => "Amazon Ramen Subscription",
             #  :deadline => "August 21, 2016", :paid_by => yan},
@@ -80,7 +80,7 @@ expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
             {:name => "Paper Towels", :amount => "23.49", :date => "June 13, 2016",
              :category => "Supplies", :details => "Amazon Subscription",
             #  :deadline => "August 21, 2016", :paid_by => gige}]
-             :deadline => "2016-08-23 21:59:00", :paid_by => gige}]
+             :deadline => "2016-08-23 21:59:00", :paid_by => val}]
 
 expense_instances = []
 expenses.each do |expense|
