@@ -63,6 +63,8 @@ class Expense < ActiveRecord::Base
 
   # Notify those charged who havent paid yet X days before the deadline
   def reminder
+    logger.info "called reminder"
+    logger.debug "expense: #{self.name}"
     send_reminders self.charges.where(:completed => false)
   end
 
@@ -70,6 +72,7 @@ class Expense < ActiveRecord::Base
   # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
 
   def send_reminders charges
+    logger.info "called send_reminders"
     @twilio_number = ENV['TWILIO_NUMBER']
     @client = Twilio::REST::Client.new ENV['TWILIO_SID'], ENV['TWILIO_TOKEN']
     deadline_str = deadline_formatted
