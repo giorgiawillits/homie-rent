@@ -64,7 +64,7 @@ class Expense < ActiveRecord::Base
   # Notify those charged who havent paid yet X days before the deadline
   def reminder
     logger.info "called reminder"
-    logger.debug "expense: #{self.name}"
+    logger.info "expense: #{self.name}"
     send_reminders self.charges.where(:completed => false)
   end
 
