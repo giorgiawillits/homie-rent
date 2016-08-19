@@ -9,8 +9,8 @@ class Expense < ActiveRecord::Base
   has_many :jobs, :class_name => "::Delayed::Job", :as => :owner
 
   after_create :reminder
-  after_save :update_reminders
-  after_destroy :delete_reminders
+  # after_save :update_reminders
+  # after_destroy :delete_reminders
 
   # @@REMINDER_TIME = 1.day # days before deadline
   @@REMINDER_TIME = 1.minute # days before deadline
@@ -90,15 +90,15 @@ class Expense < ActiveRecord::Base
     end
   end
 
-  def update_reminders
-    if self.jobs.first.run_at != self.when_to_run
-      self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
-      # reminder
-    end
-  end
+  # def update_reminders
+  #   if self.jobs.first.run_at != self.when_to_run
+  #     self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
+  #     # reminder
+  #   end
+  # end
 
-  def delete_reminders
-    self.jobs.destroy_all
-  end
+  # def delete_reminders
+  #   self.jobs.destroy_all
+  # end
 
 end
