@@ -18,6 +18,10 @@ class Charge < ActiveRecord::Base
   def amount_formatted
     format_amount_with_decimal self.amount
   end
+  
+  def amount_formatted_plain
+    format_amount_with_decimal_plain self.amount
+  end
 
   def amount_formatted_slim
     format_amount_slim self.amount

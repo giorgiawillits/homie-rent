@@ -47,10 +47,30 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    @expense = Expense.find_by_id(params[:id])
-    @expense.update_attributes!(expense_params)
+    expense = Expense.find_by_id(params[:id])
+    expense.update_attributes!(expense_params)
+    
+    charge_to = params[:charges][:users]
+    charge_to.each do |user_id, amnt|
+      charge = expense.charges.find_by_user_id(user_id)
+      amnt = amnt.to_i
+      
+      if charge == nil and amnt > 0
+        charge = Charge.new(:completed => false, :amount => amnt)
+        expense.charges << charge
+        charge.charged_to = User.find_by_id(user_id)
+        charge.save
+      elsif charge != nil
+        if amnt == 0
+          charge.destroy!
+        else
+          charge.update_attributes(:amount => amnt)
+        end
+      end
+    end
+    
     flash[:success] = "The expense has been updated"
-    redirect_to expenses_path
+    redirect_to expense_path(expense)
   end
 
   def destroy
@@ -69,6 +89,5 @@ class ExpensesController < ApplicationController
   def expense_params
     params.require(:expense).permit(:name, :amount, :date, :category, :details, :deadline)
   end
-
 
 end

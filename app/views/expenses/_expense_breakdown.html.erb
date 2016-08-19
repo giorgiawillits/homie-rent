@@ -1,4 +1,4 @@
-<table class="table table-responsive">
+<table class="table table-responsive charge-details-table <%= 'paid-by-user' if @expense.paid_by == current_user %>">
   <thead>
     <tr>
       <th>Name</th>
@@ -31,27 +31,31 @@
 
 <script>
   $(document).ready(function() {
+    
+    paidByUserMode = $("#charge-details-table").hasClass("paid-by-user");
 
-    // Update charge status when completed box is clicked
-    $(".charge-status").click(function() {
-      var mark_completed = $(this).hasClass("glyphicon-remove");
-      $.ajax({
-        type: "GET",
-        url: '/charges/update_status/' + $(this).attr("id"),
-        data: {completed: mark_completed},
-        context: $(this),
-        success: function(result) {
-          $(this).toggleClass("glyphicon-ok glyphicon-remove");
-          var checkbox = $("#" + $(this).attr("id") + ".reminder-checkbox");
-          if (checkbox.attr('disabled') != undefined) {
-            checkbox.removeAttr("disabled")
-          } else {
-            checkbox.removeAttr("checked")
-            checkbox.attr("disabled", true)
+    if (paidByuserMode) {
+      // Update charge status when completed box is clicked
+      $(".charge-status").click(function() {
+        var mark_completed = $(this).hasClass("glyphicon-remove");
+        $.ajax({
+          type: "GET",
+          url: '/charges/update_status/' + $(this).attr("id"),
+          data: {completed: mark_completed},
+          context: $(this),
+          success: function(result) {
+            $(this).toggleClass("glyphicon-ok glyphicon-remove");
+            var checkbox = $("#" + $(this).attr("id") + ".reminder-checkbox");
+            if (checkbox.attr('disabled') != undefined) {
+              checkbox.removeAttr("disabled")
+            } else {
+              checkbox.removeAttr("checked")
+              checkbox.attr("disabled", true)
+            }
           }
-        }
+        });
       });
-    });
+    }
 
     // Send reminders for all checked charges
     $(".send-reminder-button").click(function() {

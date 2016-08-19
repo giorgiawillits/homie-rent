@@ -34,8 +34,13 @@ class ChargesController < ApplicationController
   
   def update_status
     charge = Charge.find_by_id(params[:id])
-    charge.update_attributes(:completed => params[:completed])
-    render json: {}
+    if current_user != charge.paid_by
+      redirect_to expense_path(charge.expense)
+      flash[:warning] = "You cannot update the status of this charge."
+    else
+      charge.update_attributes(:completed => params[:completed])
+      render json: {}
+    end
   end
   
   # DELETE /charges/1
