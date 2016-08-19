@@ -5,9 +5,9 @@ module Formattable
 
   def format_amount_slim amount
     if amount % 1 == 0
-      format_amount_without_decimal
+      format_amount_without_decimal amount
     else
-      format_amount_with_decimal
+      format_amount_with_decimal amount
     end
   end
 
