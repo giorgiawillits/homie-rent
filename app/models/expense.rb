@@ -1,5 +1,4 @@
 # app/models/expense.rb
-include ActionView::Helpers::NumberHelper
 require 'utils'
 
 class Expense < ActiveRecord::Base

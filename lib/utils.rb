@@ -1,3 +1,4 @@
+include ActionView::Helpers::NumberHelper
 module Formattable
   def format_date date
     date.strftime("%a, %b #{date.day.ordinalize}")
