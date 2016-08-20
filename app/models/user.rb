@@ -19,14 +19,14 @@ class User < ActiveRecord::Base
 
   belongs_to :house
   has_many :expenses
-  has_many :charges
+  has_many :charges     #TODO: should we rename this to charges_against? -> has_many :charges, :class_name => "Charge", :as => :charges_against
 
   def all_activities
     activities = []
     self.expenses.each do |expense|
       activities += [{:type => "expense", :object => expense}]
     end
-    self.charged_against.each do |charge|
+    self.charges.each do |charge|
       activities += [{:type => "charge", :object => charge}]
     end
     activities.sort do |a, b|
@@ -34,10 +34,6 @@ class User < ActiveRecord::Base
       puts "B", b
       b[:object].created_at <=> a[:object].created_at
     end
-  end
-
-  def charged_against
-    Charge.where(:charged_to => self).to_a
   end
 
   def full_name

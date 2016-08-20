@@ -59,6 +59,7 @@ group :development, :test do
   gem 'byebug'
   gem 'cucumber-rails', :require => false
   gem 'rspec-rails', '~> 3.5'
+  gem 'database_cleaner'
 end
 
 group :development do
