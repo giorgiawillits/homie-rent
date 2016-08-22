@@ -1,6 +1,27 @@
-<h1>Editing House</h1>
+<!-- app/views/houses/edit.html.erb -->
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @house %> |
-<%= link_to 'Back', houses_path %>
+<div class="row">
+  <%= form_tag house_path(@house), :method => "put", :id => "house_form", :class=>"form-horizontal" do %>
+    <div class="col-md-6 p-sm">
+      <div class="ibox">
+      <div class="ibox-title">
+        <h4>House Settings</h4>
+      </div>
+        <div class="ibox-content-theme">
+          <%= render "house_form" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 p-sm">
+      <div class="ibox">
+      <div class="ibox-title">
+        <h4>Landlord Contact</h4>
+      </div>
+        <div class="ibox-content-theme">
+          <%= render "landlord_form" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,90 @@
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="name">Name</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_name" type="text"
+             value="<%= @landlord.name if @landlord %>"
+             name="landlord[name]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="phone">Phone</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_phone" type="text"
+             value="<%= @landlord.phone if @landlord %>"
+             name="landlord[phone]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="email">Email</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_email" type="text"
+             value="<%= @landlord.email if @landlord %>"
+             name="landlord[email]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="address">Address</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_address" type="text"
+             value="<%= @landlord.address if @landlord %>"
+             name="landlord[address]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="best_contact_method">Best contact method</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_best_contact_method" type="text"
+             value="<%= @landlord.best_contact_method if @landlord %>"
+             name="landlord[best_contact_method]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-4 control-label">
+    <label for="notes">Notes</label>
+  </div>
+  <div class="col-md-8" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="landlord_notes" type="text"
+             value="<%= @landlord.notes if @landlord %>"
+             name="landlord[notes]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+

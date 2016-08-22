@@ -19,6 +19,7 @@ class HousesController < ApplicationController
 
   # GET /houses/1/edit
   def edit
+    @house = House.find_by_id(params[:id])
   end
 
   # POST /houses

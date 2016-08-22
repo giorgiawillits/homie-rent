@@ -19,12 +19,12 @@
                 </div>
             </li>
             <li class="<%= 'active' if current_page?('/') %>">
-                <%= link_to "/expenses" do %>
+                <%= link_to expenses_path do %>
                 <i class="fa fa-home"></i> <span class="nav-label">Home</span>
                 <% end %>
             </li>
             <li class="<%= 'active' if current_page?('/') %>">
-                <%= link_to "/expenses" do %>
+                <%= link_to edit_house_path(current_house) do %>
                 <i class="fa fa-gear"></i> <span class="nav-label">Settings</span>
                 <% end %>
             </li>
