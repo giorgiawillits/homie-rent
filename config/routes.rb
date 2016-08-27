@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :houses
+  get '/houses/:id/add_landlord' => 'houses#add_landlord', as: :add_landlord
   resources :charges
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -10,6 +10,7 @@ Charge.destroy_all
 Expense.destroy_all
 User.destroy_all
 Delayed::Job.destroy_all
+Landlord.destroy_all
 House.destroy_all
 
 ## HOUSES  ##

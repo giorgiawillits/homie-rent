@@ -16,10 +16,25 @@ class HousesController < ApplicationController
   def new
     @house = House.new
   end
+  
+  def add_landlord
+    @house = House.find_by_id(params[:id])
+    @landlords = []
+    @house.landlords.each do |landlord|
+      @landlords << landlord
+    end
+    @landlords << Landlord.new
+    render 'edit'
+  end
 
   # GET /houses/1/edit
   def edit
     @house = House.find_by_id(params[:id])
+    @landlords = @house.landlords
+    if !@landlords.any?
+      @landlords = []
+      @landlords << Landlord.new
+    end
   end
 
   # POST /houses
