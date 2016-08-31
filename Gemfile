@@ -12,6 +12,9 @@ gem 'parsley-rails'
 gem 'bootstrap-datepicker-rails'
 gem 'momentjs-rails'
 
+# For front-end toggle buttons
+gem 'switchery-rails'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets

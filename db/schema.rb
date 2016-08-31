@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822054339) do
+ActiveRecord::Schema.define(version: 20160831045809) do
 
   create_table "charges", force: :cascade do |t|
     t.boolean  "completed"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 20160822054339) do
   end
 
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id"
+
+  create_table "fine_rules", force: :cascade do |t|
+    t.integer "amount"
+    t.boolean "reminder"
+    t.integer "days_before_deadline"
+    t.integer "house_id"
+  end
+
+  add_index "fine_rules", ["house_id"], name: "index_fine_rules_on_house_id"
 
   create_table "houses", force: :cascade do |t|
     t.string   "name"

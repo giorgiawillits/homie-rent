@@ -22,3 +22,4 @@
 //= require underscore
 //= require bootstrap-datepicker
 //= require moment
+//= require switchery
