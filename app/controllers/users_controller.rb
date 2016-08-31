@@ -33,9 +33,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       session[:user_id] = user.id
-      redirect_to '/'
+      redirect_to new_house_path
     else
-      redirect_to '/signup'
+      redirect_to signup_path
     end
   end
 
@@ -71,7 +71,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      puts @params
       params.require(:user).permit(:first_name, :last_name, :phone_number, :email, :password, :password_confirmation, :avatar)
     end
 end

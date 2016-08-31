@@ -1,5 +1,20 @@
-<h1>New House</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', houses_path %>
+<!-- app/views/houses/new.html.erb -->
+<% content_for :head do %>
+  <title>Homie | Create House</title>
+<% end %>
+<h1 class="logo-name text-center">Homie</h1>
+<div class="middle-box text-center loginscreen   animated fadeInDown">
+  <div>
+    <div>
+    </div>
+    <h3>Create a House</h3>
+    <p>Create a house to start keeping track of expenses.</p>
+    <%= form_for :house, url: '/houses',  html: { class: "m-t", "data-parsley-validate" => '' } do |f| %>
+      <div class="form-group">
+        <%= f.text_field :name, {class: "form-control", placeholder: "Name/Address", :required => ''} %>
+      </div>
+      <button type="submit" class="btn btn-primary block full-width m-b">Submit</button>
+    <% end %>
+    <p class="m-t"> <small>Homie 2016. Made with ♥ by Giorgia and Eric</small> </p>
+  </div>
+</div>

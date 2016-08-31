@@ -15,6 +15,7 @@ class HousesController < ApplicationController
   # GET /houses/new
   def new
     @house = House.new
+    render :layout => "empty"
   end
   
   def add_landlord
@@ -40,17 +41,10 @@ class HousesController < ApplicationController
   # POST /houses
   # POST /houses.json
   def create
-    @house = House.new(house_params)
-
-    respond_to do |format|
-      if @house.save
-        format.html { redirect_to @house, notice: 'House was successfully created.' }
-        format.json { render :show, status: :created, location: @house }
-      else
-        format.html { render :new }
-        format.json { render json: @house.errors, status: :unprocessable_entity }
-      end
-    end
+    house = House.new(house_params)
+    current_user.house = house
+    current_user.save
+    redirect_to root_path
   end
 
   # PATCH/PUT /houses/1
@@ -85,6 +79,6 @@ class HousesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def house_params
-      params.fetch(:house, {})
+      params.require(:house).permit(:name)
     end
 end
