@@ -30,7 +30,7 @@
           <table class="table table-hover">
 
             <tbody>
-              <% Expense.all.each do |expense| %>
+              <% @expenses.each do |expense| %>
               <tr>
                 <td class="project-status">
                   <% if expense.completed? %>

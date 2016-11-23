@@ -2,6 +2,7 @@
 
 class ExpensesController < ApplicationController
   def index
+    @expenses = current_house.expenses
   end
 
   def show
@@ -38,7 +39,7 @@ class ExpensesController < ApplicationController
     if current_user != @expense.paid_by
       redirect_to expenses_path
       flash[:warning] = "You can not edit this expense."
-    else 
+    else
       @charges = {}
       @expense.charges.each do |charge|
         @charges[charge.charged_to] = charge
@@ -49,12 +50,12 @@ class ExpensesController < ApplicationController
   def update
     expense = Expense.find_by_id(params[:id])
     expense.update_attributes!(expense_params)
-    
+
     charge_to = params[:charges][:users]
     charge_to.each do |user_id, amnt|
       charge = expense.charges.find_by_user_id(user_id)
       amnt = amnt.to_i
-      
+
       if charge == nil and amnt > 0
         charge = Charge.new(:completed => false, :amount => amnt)
         expense.charges << charge
@@ -68,7 +69,7 @@ class ExpensesController < ApplicationController
         end
       end
     end
-    
+
     flash[:success] = "The expense has been updated"
     redirect_to expense_path(expense)
   end
@@ -78,7 +79,7 @@ class ExpensesController < ApplicationController
     if current_user != @expense.paid_by
       redirect_to expenses_path
       flash[:warning] = "You can not delete this expense."
-    else 
+    else
       @expense.destroy!
       redirect_to expenses_path
     end
