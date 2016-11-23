@@ -1,0 +1,81 @@
+Decide with your roommates if there will be a fine for not meeting a rent deadline and agree on an amount.
+
+<!--Use if there are more than one fine rule-->
+  <!--<h3>Rent</h3>-->
+  <!--<div class="hr-line-dashed"></div>-->
+
+
+<div class="form-group m-b-xxs">
+  <div class="col-md-3 control-label">
+    <label for="rent_fine">Fine for late rent</label>
+  </div>
+  <div class="col-md-9" style='margin-bottom:25px;'>
+    <input type="checkbox" class="js-switch rent-fine" <%='checked' if @fine_rule and @fine_rule.amount > 0 %> />
+  </div>
+</div>
+
+<div class="form-group m-b-xxs rent-fine-enabled <%= 'hidden' unless @fine_rule and @fine_rule.amount > 0  %>">
+  <div class="col-md-3 control-label">
+    <label for="amount">Amount</label>
+  </div>
+  <div class="col-md-9" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="amount" type="text"
+             value="<%= @fine_rule.amount if @fine_rule %>"
+             name="fine_rule[amount]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+    </div>
+  </div>
+</div>
+
+<div class="form-group m-b-xxs rent-fine-enabled <%= 'hidden' unless @fine_rule and @fine_rule.amount > 0  %>">
+  <div class="col-md-3 control-label">
+    <label for="reminder">Automatic Reminder</label>
+  </div>
+  <div class="col-md-9" style='margin-bottom:25px;'>
+    <input type="checkbox" name="fine_rule[reminder]" class="js-switch auto-reminder" <%= 'checked' if @fine_rule and @fine_rule.reminder %> />
+  </div>
+</div>
+
+<div class="form-group m-b-xxs auto-reminder-enabled <%= 'hidden' unless @fine_rule and @fine_rule.reminder %>">
+  <div class="col-md-6 control-label">
+    <label for="days_before_deadline">When should the reminder be sent?</label>
+  </div>
+  <div class="col-md-6" style='margin-bottom:25px;'>
+    <div class="input-group">
+      <input id="days_before_deadline" type="text"
+             value="<%= @fine_rule.days_before_deadline if @fine_rule %>"
+             name="fine_rule[days_before_deadline]"
+             class="form-control"
+             <%= 'readonly' if @show %>  />
+      <span class="input-group-addon">days before the deadline</span>
+    </div>
+  </div>
+</div>
+
+
+<div class="ibox-content">
+  <div class="col-md-3 col-md-offset-9">
+    <button class="pull-right btn btn-sm btn-primary btn-block" type="submit">Save</button>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+    var rentFineSwitch = document.querySelector('.js-switch.rent-fine');
+    var rentFineSwitchery = new Switchery(rentFineSwitch, { color: '#1AB394' });
+    
+    var autoReminderSwitch = document.querySelector('.js-switch.auto-reminder');
+    var autoReminderSwitchery = new Switchery(autoReminderSwitch, { color: '#1AB394' });
+    
+    rentFineSwitch.onchange = function() {
+      $(".rent-fine-enabled").toggleClass("hidden");
+    };
+    
+    autoReminderSwitch.onchange = function() {
+      $(".auto-reminder-enabled").toggleClass("hidden");
+    };
+  });
+</script>

@@ -50,14 +50,25 @@ class HousesController < ApplicationController
   # PATCH/PUT /houses/1
   # PATCH/PUT /houses/1.json
   def update
-    respond_to do |format|
-      if @house.update(house_params)
-        format.html { redirect_to @house, notice: 'House was successfully updated.' }
-        format.json { render :show, status: :ok, location: @house }
+    if House.find_by_id(params[:id]) != current_house
+      flash[:warning] = "You cannot edit settings for this house, edit settings for your own house here."
+      redirect_to edit_house_path(current_house)
+    else 
+      current_house.update_attributes!(house_params)
+      
+      fine_params = params[:fine_rule]
+      puts :fine_params
+      puts fine_params
+      puts :fine_rule
+      puts current_house.fine_rule
+      if not current_house.fine_rule
+        current_house.fine_rule = FineRule.new(fine_params)
       else
-        format.html { render :edit }
-        format.json { render json: @house.errors, status: :unprocessable_entity }
+        current_house.fine_rule.update_attributes!(fine_params)
       end
+      
+      flash[:success] = "House settings updated."
+      redirect_to root_path
     end
   end
 
