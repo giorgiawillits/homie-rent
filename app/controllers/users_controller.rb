@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to new_house_path
     else
-      redirect_to signup_path
+      redirect_to new_user_path
     end
   end
 

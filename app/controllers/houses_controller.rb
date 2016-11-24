@@ -1,5 +1,5 @@
 class HousesController < ApplicationController
-  before_action :set_house, only: [:show, :edit, :update, :destroy]
+  before_action :set_house, only: [:show, :edit, :update, :destroy, :invite_user]
 
   # GET /houses
   # GET /houses.json
@@ -17,7 +17,7 @@ class HousesController < ApplicationController
     @house = House.new
     render :layout => "empty"
   end
-  
+
   def add_landlord
     @house = House.find_by_id(params[:id])
     @landlords = []
@@ -31,6 +31,7 @@ class HousesController < ApplicationController
   # GET /houses/1/edit
   def edit
     @house = House.find_by_id(params[:id])
+    @users = @house.users
     @landlords = @house.landlords
     if !@landlords.any?
       @landlords = []
@@ -53,9 +54,9 @@ class HousesController < ApplicationController
     if House.find_by_id(params[:id]) != current_house
       flash[:warning] = "You cannot edit settings for this house, edit settings for your own house here."
       redirect_to edit_house_path(current_house)
-    else 
+    else
       current_house.update_attributes!(house_params)
-      
+
       fine_params = params[:fine_rule]
       puts :fine_params
       puts fine_params
@@ -66,7 +67,7 @@ class HousesController < ApplicationController
       else
         current_house.fine_rule.update_attributes!(fine_params)
       end
-      
+
       flash[:success] = "House settings updated."
       redirect_to root_path
     end
@@ -80,6 +81,16 @@ class HousesController < ApplicationController
       format.html { redirect_to houses_url, notice: 'House was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def invite_user
+    render :json => @house.id
+  end
+
+  def join
+    house = House.find_by_id(params[:house][:invite_code])
+    current_user.update_attributes!(:house => house)
+    redirect_to '/'
   end
 
   private

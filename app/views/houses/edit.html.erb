@@ -11,7 +11,7 @@
           <%= render "house_form" %>
         </div>
       </div>
-      
+
       <div class="ibox">
       <div class="ibox-title">
         <h4>Fine Settings</h4>
@@ -21,13 +21,28 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-md-6 p-sm">
+      <div class="ibox">
+      <div class="ibox-title">
+        <h5>People</h5>
+        <div class="ibox-tools invite-housemate-button" id="<%= @house.id %>">
+          <div class="btn btn-primary btn-xs"> Add Housemate  <i class="fa fa-plus"></i> </div>
+        </div>
+      </div>
+        <div class="ibox-content-theme">
+          <% @users.each do |user| %>
+            <div><%= user.full_name %></div>
+          <% end %>
+          <div class="hidden invite-code"></div>
+        </div>
+      </div>
+
       <div class="ibox">
       <div class="ibox-title">
         <h5>Landlord Contact</h5>
         <div class="ibox-tools add-landlord-link" id="<%= @house.id %>">
-          <%= link_to (fa_icon("plus") ).html_safe, add_landlord_path, class:"btn btn-primary btn-xs" %>
+          <%= link_to ('Add Contact  ' + fa_icon("plus") ).html_safe, add_landlord_path, class:"btn btn-primary btn-xs" %>
         </div>
       </div>
         <div class="ibox-content-theme">
@@ -37,3 +52,25 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $(".invite-housemate-button").click(function() {
+      var house_id = $(this).attr("id");
+
+      $.ajax({
+        type: "GET",
+        url: '/houses/' + house_id + '/invite_user',
+        success: function(response) {
+          // display invite code
+          // TODO: make display a popup
+          popup = "Invite Code\n"
+          popup += "Share this code for others to join your house when registering.\n"
+          popup += response
+          $(".invite-code").text(popup)
+          $(".invite-code").toggleClass("hidden")
+        }
+      });
+    });
+  });
+</script>
