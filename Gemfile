@@ -15,6 +15,9 @@ gem 'momentjs-rails'
 # For front-end toggle buttons
 gem 'switchery-rails'
 
+# For FB messenger bot client
+gem 'facebook-messenger'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 # Use SCSS for stylesheets

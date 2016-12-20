@@ -23,4 +23,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
+
+  #FB messenger Bot
+  mount Facebook::Messenger::Server, at: 'bot'
 end
