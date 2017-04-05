@@ -657,6 +657,10 @@ table.table-mail tr td {
 
 /* BACKGROUNDS */
 
+.grad-bg {
+  background: linear-gradient(#e6e6e6,#e6e6e6 60%, #1bb393);
+}
+
 .gray-bg {
   background-color: $gray;
 }

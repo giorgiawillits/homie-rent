@@ -3,11 +3,12 @@
 class User < ActiveRecord::Base
   has_secure_password
   has_attached_file :avatar,
-    :default_url => "http://purelieve.com/wp-content/themes/massage/img/user.jpg",
+    :default_url => "/assets/blank_user.png",
+    :s3_protocol => "https",
     styles: {
-      thumb: '100x100>',
+      small: '100x100>',
       square: '200x200#',
-      medium: '300x300>'
+      normal: '300x300>'
     }
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
@@ -33,6 +34,14 @@ class User < ActiveRecord::Base
       puts "A", a
       puts "B", b
       b[:object].created_at <=> a[:object].created_at
+    end
+  end
+
+  def profile_pic_url size
+    if self.uid
+      "https://graph.facebook.com/#{self.uid}/picture?type=#{size}"
+    else
+      self.avatar.url(size)
     end
   end
 
