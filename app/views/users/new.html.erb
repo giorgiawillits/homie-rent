@@ -2,26 +2,46 @@
 <% content_for :head do %>
   <title>Homie | Sign up</title>
 <% end %>
-<h1 class="logo-name text-center">Homie</h1>
+<div class="text-center">
+  <img src="/assets/homie_logo_rect.png" height=110 alt="">
+</div>
 <div class="middle-box text-center loginscreen   animated fadeInDown">
     <div>
         <div>
         </div>
         <h3>Register for Homie</h3>
+        <% if flash[:fb_redirect] == true %>
+          <p class="text-primary"><%= flash[:warning] %></p>
+        <% end %>
         <p>Create an account to see it in action.</p>
         <%= form_for :user, url: '/users',  html: { class: "m-t", "data-parsley-validate" => '' } do |f| %>
-            <div class="form-group">
+            <% if flash[:fb_redirect] == true %>
+              <div class="form-group">
+                  <%= f.text_field :first_name, {class: "form-control", placeholder: "First Name", :required => '', :value => flash[:first_name]} %>
+              </div>
+              <div class="form-group">
+                  <%= f.text_field :last_name, {class: "form-control", placeholder: "Last Name", :required => '', :value => flash[:last_name]} %>
+              </div>
+              <div class="form-group">
+                  <%= f.text_field :phone_number, {class: "form-control", placeholder: "Phone Number", :required => ''} %>
+              </div>
+              <div class="form-group">
+                  <%= f.email_field :email, {class: "form-control", placeholder: "Email", :required => '', :value => flash[:email]} %>
+              </div>
+            <% else %>
+              <div class="form-group">
                 <%= f.text_field :first_name, {class: "form-control", placeholder: "First Name", :required => ''} %>
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <%= f.text_field :last_name, {class: "form-control", placeholder: "Last Name", :required => ''} %>
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <%= f.text_field :phone_number, {class: "form-control", placeholder: "Phone Number", :required => ''} %>
-            </div>
-            <div class="form-group">
+              </div>
+              <div class="form-group">
                 <%= f.email_field :email, {class: "form-control", placeholder: "Email", :required => ''} %>
-            </div>
+              </div>
+            <% end %>
             <div class="form-group">
                 <%= f.password_field :password, {class: "form-control", placeholder: "Password", :required => ''} %>
             </div>

@@ -43,7 +43,7 @@ users = {gdi => [{:first_name => 'Giorgia', :last_name => 'Willits',
                   {:first_name => 'Lauren', :last_name => 'Capelluto',
                    :phone_number => '+15555555555', :email => 'lc@berkeley.edu',
                    :avatar => File.new("#{Rails.root}/app/assets/images/yannie.jpg"),
-                   :password => 'yy'} ],
+                   :password => 'lc'} ],
          ato => [{:first_name => 'Eric', :last_name => 'Nelson',
                    :phone_number => '+11111111111', :email => 'en@berkeley.edu',
                    :password => 'en'},
@@ -69,6 +69,7 @@ val = User.find_by_first_name("Valeriya")
 paul = User.find_by_first_name("Pauline")
 anne = User.find_by_first_name("Anne")
 lauren = User.find_by_first_name("Lauren")
+eric = User.find_by_first_name("Eric")
 
 ## EXPENSES ##
 expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",

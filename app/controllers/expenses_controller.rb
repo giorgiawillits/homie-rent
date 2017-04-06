@@ -1,8 +1,26 @@
 # app/controllers/expenses_controller.rb
+require 'koala'
+require 'pp'
 
 class ExpensesController < ApplicationController
   def index
     @expenses = current_house.expenses
+
+    # @graph = Koala::Facebook::API.new(current_user.oauth_token)
+    #
+    # profile = @graph.get_object("me")
+    # print "*" * 100
+    # pp profile
+    # pp current_user.uid
+    # print "*" * 100
+    # Bot.deliver({
+    #   recipient: {
+    #     id: "1438986869505849"
+    #   },
+    #   message: {
+    #     text: 'Hey #{current_user.full_name}'
+    #   }
+    # }, access_token: ENV['ACCESS_TOKEN'])
   end
 
   def show

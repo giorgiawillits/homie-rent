@@ -219,8 +219,7 @@ ul.unstyled, ol.unstyled {
 
 .footer {
 
-  background: none repeat scroll 0 0 white;
-  border-top: 1px solid $border-color;
+  background: none repeat scroll 0 0;
   bottom: 0;
   left: 0;
   padding: 10px 20px;
@@ -656,6 +655,10 @@ table.table-mail tr td {
 }
 
 /* BACKGROUNDS */
+
+.grad-bg {
+  background: linear-gradient(#e6e6e6,#e6e6e6 60%, #1bb393);
+}
 
 .gray-bg {
   background-color: $gray;

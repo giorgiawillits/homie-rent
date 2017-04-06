@@ -59,7 +59,7 @@
                 <td class="project-people">
                   <% for charge in expense.charges.sort { |a| a.completed ? 0 : 1 } %>
                     <a href="<%= user_path(charge.charged_to) %>">
-                      <img alt="image" class="img-circle avatar-<%= if charge.completed then 'paid' else 'overdue' end %>" src="<%= charge.charged_to.avatar.url %>">
+                      <img alt="image" class="img-circle avatar-<%= if charge.completed then 'paid' else 'overdue' end %>" src="<%= charge.charged_to.profile_pic_url(:small) %>">
                     </a>
                   <% end %>
                 </td>

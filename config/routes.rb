@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
-  #FB messenger Bot
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
+
+  # FB messenger Bot
   mount Facebook::Messenger::Server, at: 'bot'
 end
