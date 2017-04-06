@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% current_house_members.each do |user| %> 
+    <% current_house_members.each do |user| %>
       <% charge = @expense.charges.find_by_user_id(user.id) %>
       <% if  charge %>
         <tr>
@@ -34,8 +34,8 @@
 
 <script>
   $(document).ready(function() {
-    
-    paidByUserMode = $("#charge-details-table").hasClass("paid-by-user");
+
+    paidByUserMode = $(".charge-details-table").hasClass("paid-by-user");
 
     if (paidByUserMode) {
       // Update charge status when completed box is clicked

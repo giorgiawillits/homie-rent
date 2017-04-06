@@ -8,6 +8,9 @@ class ExpensesController < ApplicationController
   def show
     @show = true
     @expense = Expense.find_by_id(params[:id])
+    puts @expense.paid_by
+    puts current_user
+    puts @expense.paid_by == current_user
   end
 
   def new
@@ -28,8 +31,10 @@ class ExpensesController < ApplicationController
     end
 
     if expense.save
+      flash[:success] = "Successfully saved expense."
       redirect_to expenses_path
     else
+      flash[:danger] = "Could not save expense."
       redirect_to new_expense_path
     end
   end
@@ -54,9 +59,8 @@ class ExpensesController < ApplicationController
     charge_to = params[:charges][:users]
     charge_to.each do |user_id, amnt|
       charge = expense.charges.find_by_user_id(user_id)
-      amnt = amnt.to_i
 
-      if charge == nil and amnt > 0
+      if charge == nil and amnt.to_i > 0
         charge = Charge.new(:completed => false, :amount => amnt)
         expense.charges << charge
         charge.charged_to = User.find_by_id(user_id)
@@ -70,7 +74,7 @@ class ExpensesController < ApplicationController
       end
     end
 
-    flash[:success] = "The expense has been updated"
+    flash[:success] = "The expense has been updated."
     redirect_to expense_path(expense)
   end
 
@@ -81,6 +85,7 @@ class ExpensesController < ApplicationController
       flash[:warning] = "You can not delete this expense."
     else
       @expense.destroy!
+      flash[:success] = "The expense was deleted."
       redirect_to expenses_path
     end
   end

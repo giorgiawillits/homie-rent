@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user=User.find(params[:id])
-    @expenses=@user.expenses
+    @user = User.find(params[:id])
+    @expenses = @user.expenses
   end
 
   # GET /users/new
@@ -35,6 +35,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to new_house_path
     else
+      flash[:danger] = "Please try again."
       redirect_to new_user_path
     end
   end

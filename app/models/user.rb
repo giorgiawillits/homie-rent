@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
       activities += [{:type => "charge", :object => charge}]
     end
     activities.sort do |a, b|
+      # TODO: what is this printing for?
       puts "A", a
       puts "B", b
       b[:object].created_at <=> a[:object].created_at

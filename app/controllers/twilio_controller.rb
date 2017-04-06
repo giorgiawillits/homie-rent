@@ -24,11 +24,13 @@ class TwilioController < ApplicationController
       charge = Charge.find_by_id(charge_id)
       expense_name = charge.expense.name
       paid_by = charge.paid_by
-      # user_charged = User.find_by_phone_number(from_number) -> check if this matches??
+      # TODO: check if phone number matches user_charged
+      # user_charged = User.find_by_phone_number(from_number)
       user_charged = charge.charged_to
       amount = charge.amount_formatted_slim
 
       send_to_number = paid_by.phone_number
+      # TODO: store this message template somewhere else?
       message = "#{user_charged.first_name} completed your charge of #{amount} for #{expense_name}. To confirm, reply CONFIRM COMPLETED #{charge_id}"
       send_message send_to_number, message
   end
@@ -44,6 +46,7 @@ class TwilioController < ApplicationController
       # send notification of completed charge to paid_by and charged_to users
       charged_to, amount, expense_name = charge.charged_to, charge.amount_formatted_slim, charge.expense.name
 
+      # TODO: store these message templates somewhere else?
       message = "Your charge to #{charged_to.first_name} of #{amount} for #{expense_name} has been marked as completed."
       send_message paid_by.phone_number, message
 
@@ -53,19 +56,18 @@ class TwilioController < ApplicationController
   end
 
   private
+    def boot_twilio
+      account_sid = ENV["TWILIO_SID"]
+      auth_token = ENV["TWILIO_TOKEN"]
+      @client = Twilio::REST::Client.new account_sid, auth_token
+    end
 
-  def boot_twilio
-    account_sid = ENV["TWILIO_SID"]
-    auth_token = ENV["TWILIO_TOKEN"]
-    @client = Twilio::REST::Client.new account_sid, auth_token
-  end
-
-  def send_message send_to, message
-    boot_twilio
-    sms = @client.messages.create(
-      from: ENV["TWILIO_NUMBER"],
-      to: send_to,
-      body: message)
-  end
+    def send_message send_to, message
+      boot_twilio
+      sms = @client.messages.create(
+        from: ENV["TWILIO_NUMBER"],
+        to: send_to,
+        body: message)
+    end
 
 end

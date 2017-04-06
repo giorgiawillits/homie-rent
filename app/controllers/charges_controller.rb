@@ -31,7 +31,7 @@ class ChargesController < ApplicationController
   # PATCH/PUT /charges/1.json
   def update
   end
-  
+
   def update_status
     charge = Charge.find_by_id(params[:id])
     if current_user != charge.paid_by
@@ -42,11 +42,11 @@ class ChargesController < ApplicationController
       render json: {}
     end
   end
-  
+
   # DELETE /charges/1
   # DELETE /charges/1.json
   def destroy
-    @charge.destroy
+    @charge.destroy!
   end
 
   private

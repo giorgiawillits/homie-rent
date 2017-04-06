@@ -25,7 +25,7 @@ ato, gdi = house_instances
 
 ## USERS ##
 users = {gdi => [{:first_name => 'Giorgia', :last_name => 'Willits',
-                   :phone_number => '7148759292', :email => 'gw@berkeley.edu',
+                   :phone_number => '7147884536', :email => 'gw@berkeley.edu',
                    :avatar => File.new("#{Rails.root}/app/assets/images/gige.jpg"),
                    :password => 'gw'},
                   {:first_name => 'Valeriya', :last_name => 'Imeshiva',
@@ -33,15 +33,15 @@ users = {gdi => [{:first_name => 'Giorgia', :last_name => 'Willits',
                    :avatar => File.new("#{Rails.root}/app/assets/images/val.jpg"),
                    :password => 'vi'},
                   {:first_name => 'Anne', :last_name => 'Zeng',
-                   :phone_number => '7147884536', :email => 'az@berkeley.edu',
+                   :phone_number => '7148759292', :email => 'az@berkeley.edu',
                    :avatar => File.new("#{Rails.root}/app/assets/images/anne.jpg"),
                    :password => 'az'},
                   {:first_name => 'Pauline', :last_name => 'Duprat',
                    :phone_number => '+14444444444', :email => 'pd@berkeley.edu',
                    :avatar => File.new("#{Rails.root}/app/assets/images/paul.jpg"),
                    :password => 'pd'},
-                  {:first_name => 'Yannie', :last_name => 'Yip',
-                   :phone_number => '+15555555555', :email => 'yy@berkeley.edu',
+                  {:first_name => 'Lauren', :last_name => 'Capelluto',
+                   :phone_number => '+15555555555', :email => 'lc@berkeley.edu',
                    :avatar => File.new("#{Rails.root}/app/assets/images/yannie.jpg"),
                    :password => 'yy'} ],
          ato => [{:first_name => 'Eric', :last_name => 'Nelson',
@@ -68,20 +68,20 @@ gige = User.find_by_first_name("Giorgia")
 val = User.find_by_first_name("Valeriya")
 paul = User.find_by_first_name("Pauline")
 anne = User.find_by_first_name("Anne")
-yan = User.find_by_first_name("Yannie")
+lauren = User.find_by_first_name("Lauren")
 
 ## EXPENSES ##
 expenses = [{:name => "Rent", :amount => "4600", :date => "June 1, 2016",
              :category => "Rent", :details => "June Rent",
             #  :deadline => "June 1, 2016", :paid_by => gige},
-             :deadline => "2016-08-17 00:42:00", :paid_by => gige},
+             :deadline => "2017-04-05 17:37:00", :paid_by => gige},
             {:name => "Toiletries", :amount => "10", :date => "July 10, 2016",
              :category => "Supplies", :details => "Toilet Paper and Such",
             #  :deadline => "July 31, 2016", :paid_by => paul},
              :deadline => "2016-08-23 21:57:00", :paid_by => anne},
             {:name => "Ramen", :amount => "24", :date => "July 11, 2016",
              :category => "Supplies", :details => "Amazon Ramen Subscription",
-            #  :deadline => "August 21, 2016", :paid_by => yan},
+            #  :deadline => "August 21, 2016", :paid_by => lauren},
              :deadline => "2016-08-23 21:58:00", :paid_by => gige},
             {:name => "Paper Towels", :amount => "23.49", :date => "June 13, 2016",
              :category => "Supplies", :details => "Amazon Subscription",
@@ -102,7 +102,7 @@ charges = [{:completed => false, :amount => 1650.34, :expense => june_rent, :cha
            {:completed => true, :amount => 650, :expense => june_rent, :charged_to => paul},
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => gige},
            {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => val},
-           {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => yan},
+           {:completed => true, :amount => 1100, :expense => june_rent, :charged_to => lauren},
 
            {:completed => true, :amount => 6, :expense => ramen, :charged_to => gige},
            {:completed => true, :amount => 6, :expense => ramen, :charged_to => anne},
@@ -113,7 +113,7 @@ charges = [{:completed => false, :amount => 1650.34, :expense => june_rent, :cha
 
            {:completed => true, :amount => 7.83, :expense => amazon, :charged_to => val},
            {:completed => true, :amount => 7.83, :expense => amazon, :charged_to => anne},
-           {:completed => false, :amount => 7.83, :expense => amazon, :charged_to => yan}]
+           {:completed => false, :amount => 7.83, :expense => amazon, :charged_to => lauren}]
 
 charge_instances = []
 charges.each do |charge|

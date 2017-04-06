@@ -52,7 +52,6 @@ class Expense < ActiveRecord::Base
   def reminder
     send_reminders self.charges.where(:completed => false)
   end
-  # handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner => Proc.new { |o| o }
   handle_asynchronously :reminder, :run_at => Proc.new { |i| i.when_to_run }, :owner_type => Proc.new { |o| o.class.name }, :owner_id => Proc.new { |o| o.id }
 
   def send_reminders charges
@@ -77,6 +76,7 @@ class Expense < ActiveRecord::Base
   end
 
   def update_reminders
+    # TODO: this only updates one of the reminders
     if self.jobs.first.run_at != self.when_to_run
       self.jobs.first.update_attributes(:run_at => Proc.new { |i| i.when_to_run })
     end

@@ -30,7 +30,6 @@ class HousesController < ApplicationController
 
   # GET /houses/1/edit
   def edit
-    @house = House.find_by_id(params[:id])
     @users = @house.users
     @landlords = @house.landlords
     if !@landlords.any?
@@ -57,6 +56,7 @@ class HousesController < ApplicationController
     else
       current_house.update_attributes!(house_params)
 
+      # TODO: what is this?
       fine_params = params[:fine_rule]
       puts :fine_params
       puts fine_params
