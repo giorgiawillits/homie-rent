@@ -31,9 +31,22 @@
         </div>
       </div>
         <div class="ibox-content-theme">
-          <% @users.each do |user| %>
-            <div><%= user.full_name %></div>
-          <% end %>
+          <table class="table table-responsive">
+            <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td class="col-md-3" valign="middle">
+                    <a href="<%= user_path(user) %>">
+                      <img alt="image" class="img-circle thumb-small" src="<%= user.profile_pic_url(:small) %>">
+                    </a>
+                  </td>
+                  <td class="col-md-9 v-middle">
+                    <%= user.full_name %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
           <div class="hidden invite-code"></div>
         </div>
       </div>
